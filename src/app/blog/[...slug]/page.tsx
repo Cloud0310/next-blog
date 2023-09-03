@@ -20,6 +20,8 @@ const markdownRenderer = new Marked(
 );
 
 export async function generateStaticParams() {
+    if (!fs.existsSync("sources/posts"))
+        return []
     return await fs.promises.readdir("sources/posts")
         .then(files => files.map(file => matter.read(`sources/posts/${file}`)))
         .then(matters => {
