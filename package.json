@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fluentui/react-components": "^9.30.1",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/marked": "^5.0.1",
     "@types/node": "20.3.2",
