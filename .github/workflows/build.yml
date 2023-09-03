@@ -6,7 +6,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: ${{ !startsWith(github.event.ref, 'refs/tags/') && !contains(github.event.head_commit.message, '[build skip]') }}
+    if: ${{ !startsWith(github.event.ref, 'refs/tags/') && !contains(github.event.head_commit.message, '[skip build]') }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3

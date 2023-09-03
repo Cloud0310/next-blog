@@ -1,11 +1,9 @@
 import './globals.css'
 import React from "react";
 
-const inter = Inter({ subsets: ['latin'] })
-
 export const metadata = {
     title: 'Next Blog',
-    description: 'A blog build by Cloud0310 and NickId2018',
+    description: 'A blog build by Cloud0310 and Nickid2018',
 }
 
 export default function RootLayout({
@@ -15,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
       <>
-          <div className="flex"></div>
+          <div className="flex">{children}</div>
       </>
   ) as React.ReactNode
 }
