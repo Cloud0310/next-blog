@@ -10,6 +10,7 @@ module.exports = {
             'sans': ['Noto Sans', 'Source Hans Sans', 'sans-serif'],
             'serif': ['Noto Serif', 'Source Hans Serif', 'serif'],
             'mono': ['JetBrains Mono Nerd Font', 'JetBrains Mono', 'monospace'],
+            'symbol': ['var(--font-family-symbols)']
         },
         extend: {
             backgroundImage: {

@@ -1,19 +1,30 @@
-import './globals.css'
 import React from "react";
+import './globals.css'
+import type {Metadata} from "next";
+import localFont from 'next/font/local';
 
-export const metadata = {
-    title: 'Next Blog',
-    description: 'A blog build by Cloud0310 and Nickid2018',
+const materialSymbols = localFont({
+  variable: '--font-family-symbols',
+  style: 'normal',
+  src: '../../node_modules/material-symbols/material-symbols-rounded.woff2',
+  display: 'block',
+  weight: '100 700',
+})
+
+
+export const metadata: Metadata = {
+  title: 'Next Blog',
+  description: 'A blog build by Cloud0310 and NickId2018',
 }
 
 export default function RootLayout({
-  children,
-}: {
+                                     children,
+                                   }: {
   children: React.ReactNode
 }) {
   return (
-      <>
-          <div className="flex">{children}</div>
-      </>
-  ) as React.ReactNode
+    <html className={`${materialSymbols.variable}`}>
+    <body>{children}</body>
+    </html>
+  )
 }

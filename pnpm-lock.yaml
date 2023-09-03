@@ -38,6 +38,12 @@ dependencies:
   gray-matter:
     specifier: ^4.0.3
     version: 4.0.3
+  marked:
+    specifier: ^8.0.0
+    version: 8.0.0
+  material-symbols:
+    specifier: ^0.11.0
+    version: 0.11.0
   next:
     specifier: 13.4.7
     version: 13.4.7(react-dom@18.2.0)(react@18.2.0)
@@ -3048,6 +3054,16 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       yallist: 4.0.0
+    dev: false
+
+  /marked@8.0.0:
+    resolution: { integrity: sha512-RI/D5csFVreNrFchdKFSdV38GDHJdD7OdmbNWYzGvApPb0A9pyypgfHC/FBH4ugmRE8cr7yg/TH7tu8585eMhA== }
+    engines: { node: '>= 16' }
+    hasBin: true
+    dev: false
+
+  /material-symbols@0.11.0:
+    resolution: { integrity: sha512-YJ7EyB7KMZFPQAKi0x1A+tH4zXEYw8FSGy1aAheqLm/ELzdotKwYe1hXUpmMcz87g7OoqikDeKEjRB+uGv9LrQ== }
     dev: false
 
   /merge2@1.4.1:
