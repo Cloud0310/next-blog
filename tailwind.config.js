@@ -7,17 +7,12 @@ module.exports = {
     ],
     theme: {
         fontFamily: {
-            'sans': ['Noto Sans', 'Source Hans Sans', 'sans-serif'],
-            'serif': ['Noto Serif', 'Source Hans Serif', 'serif'],
-            'mono': ['JetBrains Mono Nerd Font', 'JetBrains Mono', 'monospace'],
+            'sans': ['var(--font-noto-sans)', 'var(--font-source-hans-sans)', 'sans-serif'],
+            'serif': ['var(--font-noto-serif)', 'var(--font-source-hans-serif)', 'serif'],
+            'mono': ['var(--font-jetbrains-mono)', 'monospace'],
             'symbol': ['var(--font-family-symbols)']
         },
         extend: {
-            backgroundImage: {
-                'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-                'gradient-conic':
-                    'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-            },
         },
     },
     plugins: [],
