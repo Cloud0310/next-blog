@@ -17,6 +17,9 @@ dependencies:
   '@types/node':
     specifier: 20.3.2
     version: 20.3.2
+  '@types/prismjs':
+    specifier: ^1.26.0
+    version: 1.26.0
   '@types/react':
     specifier: 18.2.14
     version: 18.2.14
@@ -38,9 +41,6 @@ dependencies:
   gray-matter:
     specifier: ^4.0.3
     version: 4.0.3
-  highlight.js:
-    specifier: ^11.8.0
-    version: 11.8.0
   html-react-parser:
     specifier: ^4.2.2
     version: 4.2.2(react@18.2.0)
@@ -48,11 +48,11 @@ dependencies:
     specifier: ^8.0.0
     version: 8.0.0
   marked-highlight:
-    specifier: ^2.0.4
-    version: 2.0.4(marked@8.0.0)
+    specifier: ^2.0.5
+    version: 2.0.5(marked@8.0.0)
   marked-katex-extension:
-    specifier: ^3.0.3
-    version: 3.0.3(marked@8.0.0)
+    specifier: ^3.0.4
+    version: 3.0.4(marked@8.0.0)
   material-symbols:
     specifier: ^0.11.0
     version: 0.11.0
@@ -62,6 +62,9 @@ dependencies:
   postcss:
     specifier: 8.4.24
     version: 8.4.24
+  prismjs:
+    specifier: ^1.29.0
+    version: 1.29.0
   react:
     specifier: 18.2.0
     version: 18.2.0
@@ -1573,6 +1576,10 @@ packages:
     resolution: {integrity: sha512-vOBLVQeCQfIcF/2Y7eKFTqrMnizK5lRNQ7ykML/5RuwVXVWxYkgwS7xbt4B6fKCUPgbSL5FSsjHQpaGQP/dQmw==}
     dev: false
 
+  /@types/prismjs@1.26.0:
+    resolution: {integrity: sha512-ZTaqn/qSqUuAq1YwvOFQfVW1AR/oQJlLSZVustdjwI+GZ8kr0MSHBj0tsXPW1EqHubx50gtBEjbPGsdZwQwCjQ==}
+    dev: false
+
   /@types/prop-types@15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
     dev: false
@@ -1731,8 +1738,8 @@ packages:
       is-array-buffer: 3.0.2
     dev: false
 
-  /array-includes@3.1.6:
-    resolution: {integrity: sha512-sgTbLvL6cNnw24FnbaDyjmvddQ2ML8arZsgaJhoABMoplz/4QRhtrYS+alr1BUM1Bwp6dhx8vVCBSLG+StwOFw==}
+  /array-includes@3.1.7:
+    resolution: {integrity: sha512-dlcsNBIiWhPkHdOEEKnehA+RNUWDc4UqFtnIXU4uuYDPtA4LDkr7qip2p0VvFAEXNDr0yWZ9PJyIRiGjRLQzwQ==}
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
@@ -2307,7 +2314,7 @@ packages:
         optional: true
     dependencies:
       '@typescript-eslint/parser': 5.62.0(eslint@8.43.0)(typescript@5.1.3)
-      array-includes: 3.1.6
+      array-includes: 3.1.7
       array.prototype.findlastindex: 1.2.3
       array.prototype.flat: 1.3.1
       array.prototype.flatmap: 1.3.1
@@ -2339,7 +2346,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.22.11
       aria-query: 5.3.0
-      array-includes: 3.1.6
+      array-includes: 3.1.7
       array.prototype.flatmap: 1.3.1
       ast-types-flow: 0.0.7
       axe-core: 4.7.2
@@ -2371,7 +2378,7 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
     dependencies:
-      array-includes: 3.1.6
+      array-includes: 3.1.7
       array.prototype.flatmap: 1.3.1
       array.prototype.tosorted: 1.1.1
       doctrine: 2.1.0
@@ -2764,11 +2771,6 @@ packages:
       function-bind: 1.1.1
     dev: false
 
-  /highlight.js@11.8.0:
-    resolution: {integrity: sha512-MedQhoqVdr0U6SSnWPzfiadUcDHfN/Wzq25AkXiQv9oiOO/sG0S7XkvpFIqWBl9Yq1UYyYOOVORs5UW2XlPyzg==}
-    engines: {node: '>=12.0.0'}
-    dev: false
-
   /html-dom-parser@4.0.0:
     resolution: {integrity: sha512-TUa3wIwi80f5NF8CVWzkopBVqVAtlawUzJoLwVLHns0XSJGynss4jiY0mTWpiDOsuyw+afP+ujjMgRh9CoZcXw==}
     dependencies:
@@ -3073,7 +3075,7 @@ packages:
     resolution: {integrity: sha512-ZZow9HBI5O6EPgSJLUb8n2NKgmVWTwCvHGwFuJlMjvLFqlGG6pjirPhtdsseaLZjSibD8eegzmYpUZwoIlj2cQ==}
     engines: {node: '>=4.0'}
     dependencies:
-      array-includes: 3.1.6
+      array-includes: 3.1.7
       array.prototype.flat: 1.3.1
       object.assign: 4.1.4
       object.values: 1.1.7
@@ -3153,18 +3155,18 @@ packages:
       yallist: 4.0.0
     dev: false
 
-  /marked-highlight@2.0.4(marked@8.0.0):
-    resolution: {integrity: sha512-hnm+rY3p+DQlSd2uY3zSXec+1kq5x9lD3+PWOMz0ROcil4Btcbt///Fto52jqWWt7XBGiTRk+1+w2rGfx2U2Sw==}
+  /marked-highlight@2.0.5(marked@8.0.0):
+    resolution: {integrity: sha512-SnMOy3LBe3ZMVyew7sO/wqAzBBSrLrOejeayP2bmnB00rrETtNyEvJkR5f3kDRYv5nT+ueEMba6XcGlmcyaN+A==}
     peerDependencies:
-      marked: ^4 || ^5 || ^6 || ^7
+      marked: '>=4 <9'
     dependencies:
       marked: 8.0.0
     dev: false
 
-  /marked-katex-extension@3.0.3(marked@8.0.0):
-    resolution: {integrity: sha512-FWz5Anp2Fu7NquXf/6Q9J6+MkzmNPVw2cZXUosNxTTzM/tPhO63Kh4duiClLi1vW9NuwDlH7UwjrU3qrD1hfjg==}
+  /marked-katex-extension@3.0.4(marked@8.0.0):
+    resolution: {integrity: sha512-PtZrtSqngp384BXYI+57eUrHSgvyiPbE0gON0FcD/PKEQI72zyfQ77dMRBCHsg564NTvuGNUao8sEZ5kEpW2lA==}
     peerDependencies:
-      marked: ^4 || ^5 || ^6 || ^7
+      marked: '>=4 <9'
     dependencies:
       '@types/katex': 0.16.2
       katex: 0.16.8
@@ -3523,6 +3525,11 @@ packages:
   /prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
+    dev: false
+
+  /prismjs@1.29.0:
+    resolution: {integrity: sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==}
+    engines: {node: '>=6'}
     dev: false
 
   /prop-types@15.8.1:
