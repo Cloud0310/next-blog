@@ -17,8 +17,7 @@ const materialSymbols = localFont({
 const notoSans = Noto_Sans({
   subsets: ["latin"],
   display: "auto",
-  style: ["normal", "italic"],
-  weight: ["400", "600", "700", "800"],
+  weight: ["400"],
   variable: "--font-noto-sans",
 })
 
@@ -71,7 +70,7 @@ export default function RootLayout({
       ${jetbrainsMono.variable}
     `}>
     <body>
-    <div className="fixed flex justify-between w-full px-5 border-b items-center backdrop-blur-lg z-10 top-0">
+    <div className="fixed flex justify-between w-full px-5 border-b items-center backdrop-blur-lg z-10 top-0 h-[60px]">
       <div className="py-2 px-1 flex items-center gap-2.5">
         <div className="symbol font-bold text-4xl"><span> rocket </span></div>
         <div className="text-2xl font-bold font-sans">Next Blog</div>
@@ -79,13 +78,15 @@ export default function RootLayout({
       <div className="flex justify-between font-symbol text-4xl w-48">
         <div className="w-11 border-r mx-4"><span>search</span></div>
         <div><span>light_mode</span></div>
-        <div className="h-10 w-9 py-0.5 px-0.5"><Image src='./images/github-mark.svg' alt="github" width="36"
+        <div className="h-10 w-9 py-0.5 px-0.5"><Image src='/images/github-mark.svg' alt="github" width="36"
                                                        height="42"/></div>
         <div><span>rss_feed</span></div>
       </div>
     </div>
-    <div className="w-full flex-col items-center justify-center">
-      {children}
+    <div className="flex-col items-center justify-center w-full flex top-[60px] relative">
+      <div className="w-1/4"></div>
+      <div className="w-1/2 lg:w-max-[700px] px-10 "> {children} </div>
+      <div className="w-1/4 flex-col p-2.5 items-start gap-4 "></div>
     </div>
     </body>
     </html>
