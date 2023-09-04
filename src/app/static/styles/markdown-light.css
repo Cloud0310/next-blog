@@ -3,6 +3,8 @@
 @layer base {
     :root {
         --color-border: hsla(210, 18%, 87%, 1);
-        --color-code-background: #f6f8fa;
+        --color-pre-background: #f6f8fa;
+        --color-code-background: rgba(175, 184, 193, 0.2);
+        --color-link-text: #0366d6;
     }
 }

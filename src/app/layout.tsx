@@ -54,7 +54,7 @@ const sourceHanSerif = localFont({
 
 export const metadata: Metadata = {
   title: 'Next Blog',
-  description: 'A blog build by Cloud0310 and NickId2018',
+  description: 'A blog build by Cloud0310 and Nickid2018',
 }
 
 export default function RootLayout({
@@ -71,7 +71,7 @@ export default function RootLayout({
       ${jetbrainsMono.variable}
     `}>
     <body>
-    <div className="fixed flex justify-between w-full px-5 border-b items-center backdrop-blur-sm">
+    <div className="fixed flex justify-between w-full px-5 border-b items-center backdrop-blur-lg z-10 top-0">
       <div className="py-2 px-1 flex items-center gap-2.5">
         <div className="symbol font-bold text-4xl"><span> rocket </span></div>
         <div className="text-2xl font-bold font-sans">Next Blog</div>
@@ -84,7 +84,7 @@ export default function RootLayout({
         <div><span>rss_feed</span></div>
       </div>
     </div>
-    <div className="w-full flex-col items-center justify-center ">
+    <div className="w-full flex-col items-center justify-center">
       {children}
     </div>
     </body>

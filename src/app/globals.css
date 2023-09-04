@@ -1,5 +1,5 @@
-@import "styles/markdown-light.css";
-@import "styles/markdown-dark.css";
+@import "static/styles/markdown-light.css";
+@import "static/styles/markdown-dark.css";
 @import "prismjs/themes/prism.css";
 
 @tailwind base;
@@ -10,6 +10,7 @@
     .symbol {
         font-family: theme('fontFamily.symbol'), serif;
         font-style: normal;
+        font-size: 24px;
         line-height: 1;
         letter-spacing: normal;
         text-transform: none;
@@ -41,6 +42,19 @@
         line-height: 1.25;
     }
 
+    .markdown-content p,
+    .markdown-content blockquote,
+    .markdown-content ul,
+    .markdown-content ol,
+    .markdown-content dl,
+    .markdown-content table,
+    .markdown-content pre,
+    .markdown-content details {
+        margin-top: 0;
+        margin-bottom: 16px;
+    }
+
+    .markdown-content h1,
     .markdown-content h2 {
         padding-bottom: .3em;
         font-size: 1.5em;
@@ -56,7 +70,76 @@
         overflow: auto;
         font-size: 85%;
         line-height: 1.45;
+        background-color: var(--color-pre-background);
+        border-radius: 6px;
+    }
+
+    .markdown-content .code-container {
+        position: relative;
+    }
+
+    .markdown-content .code-container span.lang-text {
+        position: absolute;
+        top: 2px;
+        right: 6px;
+        opacity: 40%;
+        font-size: 12px;
+        font-weight: lighter;
+        z-index: 2;
+        transition: opacity 0.6s cubic-bezier(.06, .72, 0, 1.02);
+    }
+
+    .markdown-content .code-container:hover span.lang-text {
+        opacity: 0;
+    }
+
+    .markdown-content a {
+        color: var(--color-link-text);
+        background-color: transparent;
+        text-decoration: none;
+    }
+
+    .markdown-content a:hover {
+        text-decoration: underline;
+    }
+
+    .markdown-content code:not([class~="prism"]) {
+        padding: .2em .4em;
+        margin: 0;
+        font-size: 75%;
+        white-space: break-spaces;
         background-color: var(--color-code-background);
         border-radius: 6px;
+    }
+
+    .markdown-content ul,
+    .markdown-content ol {
+        padding-left: 2em;
+    }
+
+    .markdown-content li {
+        list-style-type: disc;
+    }
+
+    .markdown-content .heading-link {
+        float: left;
+        padding-right: 4px;
+        margin-left: -20px;
+        line-height: 1;
+        opacity: 0;
+        transition: opacity 0.6s cubic-bezier(.06, .72, 0, 1.02);
+    }
+
+    .markdown-content .heading-link:hover {
+        text-decoration: none;
+    }
+
+    .markdown-content h1:hover .heading-link,
+    .markdown-content h2:hover .heading-link,
+    .markdown-content h3:hover .heading-link,
+    .markdown-content h4:hover .heading-link,
+    .markdown-content h5:hover .heading-link,
+    .markdown-content h6:hover .heading-link {
+        opacity: 100%;
     }
 }
