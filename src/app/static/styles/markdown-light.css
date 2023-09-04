@@ -1,0 +1,8 @@
+@tailwind base;
+
+@layer base {
+    :root {
+        --color-border: hsla(210, 18%, 87%, 1);
+        --color-code-background: #f6f8fa;
+    }
+}
