@@ -2,4 +2,12 @@
 module.exports = {
   plugins: ["prettier-plugin-tailwindcss"],
   tailwindConfig: "./tailwind.config.js",
+  overrides: [
+    {
+      files: "*.css",
+      options: {
+        tabWidth: 4,
+      },
+    },
+  ],
 };
