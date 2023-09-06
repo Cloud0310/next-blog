@@ -1,7 +1,0 @@
-@tailwind base;
-
-@layer base {
-    :root[theme="dark"] {
-        --color-border: hsla(210, 18%, 87%, 1)
-    }
-}

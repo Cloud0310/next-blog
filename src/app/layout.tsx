@@ -1,9 +1,10 @@
 import React from "react";
-import "./globals.css";
+import "./styles/globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import Image from "next/image";
 import { JetBrains_Mono, Noto_Sans, Noto_Serif } from "next/font/google";
+import ThemeRegistry from "./ThemeRegistry";
+import Image from "next/image";
 
 const materialSymbols = localFont({
   style: "normal",
@@ -56,11 +57,7 @@ export const metadata: Metadata = {
   description: "A blog build by Cloud0310 and Nickid2018",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: any }) {
   return (
     <html
       className={`${materialSymbols.variable}
@@ -72,36 +69,36 @@ export default function RootLayout({
     `}
     >
       <body>
-        <div className="fixed flex justify-between w-full px-5 border-b items-center backdrop-blur-lg z-10 top-0 h-[60px]">
-          <div className="py-2 px-1 flex items-center gap-2.5">
-            <div className="symbol font-bold text-4xl">
-              <span>rocket</span>
+        <ThemeRegistry options={{ key: "joy" }}>
+          <div className="fixed flex justify-between w-full px-5 border-b items-center backdrop-blur-lg z-10 top-0 h-[60px]">
+            <div className="py-2 px-1 flex items-center gap-2.5">
+              <div className="symbol font-bold text-4xl">
+                <span>rocket</span>
+              </div>
+              <div className="text-2xl font-bold font-sans">Next Blog</div>
             </div>
-            <div className="text-2xl font-bold font-sans">Next Blog</div>
+            <div className="flex justify-between font-symbol text-4xl w-48">
+              <div className="w-11 border-r mx-4">
+                <span>search</span>
+              </div>
+              <div>
+                <span>light_mode</span>
+              </div>
+              <div className="h-10 w-9 py-0.5 px-0.5">
+                <Image
+                  src="/images/github-mark.svg"
+                  alt="github"
+                  width="36"
+                  height="42"
+                />
+              </div>
+              <div>
+                <span>rss_feed</span>
+              </div>
+            </div>
           </div>
-          <div className="flex justify-between font-symbol text-4xl w-48">
-            <div className="w-11 border-r mx-4">
-              <span>search</span>
-            </div>
-            <div>
-              <span>light_mode</span>
-            </div>
-            <div className="h-10 w-9 py-0.5 px-0.5">
-              <Image
-                src="/images/github-mark.svg"
-                alt="github"
-                width="36"
-                height="42"
-              />
-            </div>
-            <div>
-              <span>rss_feed</span>
-            </div>
-          </div>
-        </div>
-        <div className="flex-col items-center justify-center w-full flex top-[60px] relative">
           {children}
-        </div>
+        </ThemeRegistry>
       </body>
     </html>
   );

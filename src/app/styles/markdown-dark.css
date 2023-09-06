@@ -1,0 +1,7 @@
+@tailwind base;
+
+@layer base {
+  :root[theme="dark"] {
+    --color-border: theme(colors.neutral.200);
+  }
+}
