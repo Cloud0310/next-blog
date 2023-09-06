@@ -81,6 +81,20 @@
         line-height: 1.45;
         background-color: var(--color-pre-background);
         border-radius: 6px;
+        scrollbar-width: thin;
+    }
+
+    .markdown-content pre::-webkit-scrollbar {
+        height: 8px;
+        background-color: #f0f0f0;
+    }
+
+    .markdown-content pre::-webkit-scrollbar-thumb {
+        background-color: #cdcdcd;
+    }
+
+    .markdown-content pre::-webkit-scrollbar-thumb:hover {
+        background-color: #a6a6a6;
     }
 
     .markdown-content .code-container {
