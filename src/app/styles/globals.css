@@ -1,5 +1,5 @@
-@import "markdown-light.css";
-@import "markdown-dark.css";
+@import "./markdown-light.css";
+@import "./markdown-dark.css";
 @import "prismjs/themes/prism.css";
 
 @tailwind base;
@@ -8,7 +8,7 @@
 
 @layer components {
     .symbol {
-        font-family: theme('fontFamily.symbol'), serif;
+        font-family: theme("fontFamily.symbol"), serif;
         font-style: normal;
         font-size: 24px;
         line-height: 1;
@@ -21,12 +21,12 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-rendering: optimizeLegibility;
-        font-feature-settings: 'liga';
+        font-feature-settings: "liga";
     }
 
     .markdown-content {
         font-size: 16px;
-        font-weight: 400;
+        font-weight: 350;
         line-height: 1.5;
         word-wrap: break-word;
     }
@@ -61,11 +61,13 @@
     }
 
     .markdown-content h1 {
+        padding-bottom: 0.3em;
         font-size: 2rem;
         border-bottom: 1px solid var(--color-border);
     }
 
     .markdown-content h2 {
+        padding-bottom: 0.3em;
         font-size: 1.5rem;
         border-bottom: 1px solid var(--color-border);
     }
@@ -92,10 +94,11 @@
         top: 2px;
         right: 6px;
         opacity: 40%;
-        font-size: .75rem;
+        font-size: 0.75rem;
+        font-weight: lighter;
         z-index: 2;
         text-transform: capitalize;
-        transition: opacity 0.6s cubic-bezier(.06, .72, 0, 1.02);
+        transition: opacity 0.6s cubic-bezier(0.06, 0.72, 0, 1.02);
     }
 
     .markdown-content .code-container:hover span.lang-text {
@@ -113,7 +116,7 @@
     }
 
     .markdown-content code:not([class~="prism"]) {
-        padding: .2em .4em;
+        padding: 0.2em 0.4em;
         margin: 0;
         font-size: 85%;
         font-weight: 400;
@@ -135,36 +138,12 @@
         padding-left: 2em;
     }
 
-    .markdown-content ul {
+    .markdown-content ul li {
         list-style-type: disc;
     }
 
-    .markdown-content ol {
+    .markdown-content ol li {
         list-style-type: decimal;
-    }
-
-    .markdown-content ol ul,
-    .markdown-content ul ul {
-        list-style-type: circle;
-    }
-
-    .markdown-content ol ol,
-    .markdown-content ul ol {
-        list-style-type: lower-roman;
-    }
-
-    .markdown-content ul ul ul,
-    .markdown-content ul ol ul,
-    .markdown-content ol ul ul,
-    .markdown-content ol ol ul {
-        list-style-type: square;
-    }
-
-    .markdown-content ul ul ol,
-    .markdown-content ul ol ol,
-    .markdown-content ol ul ol,
-    .markdown-content ol ol ol {
-        list-style-type: lower-alpha;
     }
 
     .markdown-content .heading-link {
@@ -224,25 +203,21 @@
         margin: 24px 0;
         background-color: var(--color-border);
         border: 0;
-        height: .15em;
+        height: 0.15em;
     }
 
     .markdown-content blockquote {
         padding: 0 1em;
         color: var(--color-text-secondary);
-        border-left: .25em solid var(--color-border);
+        border-left: 0.25em solid var(--color-border);
     }
 
     .markdown-content img {
         max-width: 100%;
     }
 
-    .markdown-content code[class~="prism"],
-    .markdown-content pre[class~="prism"] {
+    .markdown-content code[class*="language-"],
+    .markdown-content pre[class*="language-"] {
         font-family: theme("fontFamily.mono"), monospace;
-    }
-
-    .markdown-content > :last-child {
-        margin-bottom: 0 !important;
     }
 }
