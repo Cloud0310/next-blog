@@ -31,7 +31,7 @@ const notoSerif = Noto_Serif({
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  display: "block",
+  display: "swap",
   variable: "--font-jetbrains-mono",
 })
 
