@@ -8,7 +8,7 @@
 
 @layer components {
     .symbol {
-        font-family: theme("fontFamily.symbol"), serif;
+        font-family: theme('fontFamily.symbol'), serif;
         font-style: normal;
         font-size: 24px;
         line-height: 1;
@@ -21,12 +21,12 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-rendering: optimizeLegibility;
-        font-feature-settings: "liga";
+        font-feature-settings: 'liga';
     }
 
     .markdown-content {
         font-size: 16px;
-        font-weight: 350;
+        font-weight: 400;
         line-height: 1.5;
         word-wrap: break-word;
     }
@@ -61,13 +61,11 @@
     }
 
     .markdown-content h1 {
-        padding-bottom: 0.3em;
         font-size: 2rem;
         border-bottom: 1px solid var(--color-border);
     }
 
     .markdown-content h2 {
-        padding-bottom: 0.3em;
         font-size: 1.5rem;
         border-bottom: 1px solid var(--color-border);
     }
@@ -94,15 +92,34 @@
         top: 2px;
         right: 6px;
         opacity: 40%;
-        font-size: 0.75rem;
-        font-weight: lighter;
-        z-index: 2;
+        font-size: .75rem;
         text-transform: capitalize;
-        transition: opacity 0.6s cubic-bezier(0.06, 0.72, 0, 1.02);
+        transition: opacity 0.6s cubic-bezier(.06, .72, 0, 1.02);
+        z-index: 2;
     }
 
     .markdown-content .code-container:hover span.lang-text {
         opacity: 0;
+    }
+
+    .markdown-content .code-container button.copy-content {
+        position: absolute;
+        top: 12px;
+        right: 16px;
+        width: 35px;
+        height: 35px;
+        font-family: theme('fontFamily.symbol'), serif;
+        font-size: 1.25rem;
+        border: 1px solid var(--color-border);
+        border-radius: 4px;
+        opacity: 0;
+        background-color: var(--color-pre-background);
+        transition: opacity 0.6s cubic-bezier(.06, .72, 0, 1.02);
+        z-index: 3;
+    }
+
+    .markdown-content .code-container:hover button.copy-content {
+        opacity: 100%;
     }
 
     .markdown-content a {
@@ -116,7 +133,7 @@
     }
 
     .markdown-content code:not([class~="prism"]) {
-        padding: 0.2em 0.4em;
+        padding: .2em .4em;
         margin: 0;
         font-size: 85%;
         font-weight: 400;
@@ -138,12 +155,36 @@
         padding-left: 2em;
     }
 
-    .markdown-content ul li {
+    .markdown-content ul {
         list-style-type: disc;
     }
 
-    .markdown-content ol li {
+    .markdown-content ol {
         list-style-type: decimal;
+    }
+
+    .markdown-content ol ul,
+    .markdown-content ul ul {
+        list-style-type: circle;
+    }
+
+    .markdown-content ol ol,
+    .markdown-content ul ol {
+        list-style-type: lower-roman;
+    }
+
+    .markdown-content ul ul ul,
+    .markdown-content ul ol ul,
+    .markdown-content ol ul ul,
+    .markdown-content ol ol ul {
+        list-style-type: square;
+    }
+
+    .markdown-content ul ul ol,
+    .markdown-content ul ol ol,
+    .markdown-content ol ul ol,
+    .markdown-content ol ol ol {
+        list-style-type: lower-alpha;
     }
 
     .markdown-content .heading-link {
@@ -203,21 +244,25 @@
         margin: 24px 0;
         background-color: var(--color-border);
         border: 0;
-        height: 0.15em;
+        height: .15em;
     }
 
     .markdown-content blockquote {
         padding: 0 1em;
         color: var(--color-text-secondary);
-        border-left: 0.25em solid var(--color-border);
+        border-left: .25em solid var(--color-border);
     }
 
     .markdown-content img {
         max-width: 100%;
     }
 
-    .markdown-content code[class*="language-"],
-    .markdown-content pre[class*="language-"] {
+    .markdown-content code[class~="prism"],
+    .markdown-content pre[class~="prism"] {
         font-family: theme("fontFamily.mono"), monospace;
+    }
+
+    .markdown-content > :last-child {
+        margin-bottom: 0 !important;
     }
 }

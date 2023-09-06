@@ -6,6 +6,8 @@ import matter from "gray-matter";
 import parse from "html-react-parser";
 import { slug } from "github-slugger";
 import DOMPurity from "isomorphic-dompurify";
+//@ts-ignore
+import { encodeHTML } from "entities";
 
 // Marked Highlight, modified from marked-highlight --------------------------------------------------------------------
 // From marked helpers
@@ -37,33 +39,27 @@ const markdownRenderer = new Marked(
     throwOnError: false,
   }),
   {
-    walkTokens(token) {
-      if (token.type !== "code") return;
-      if (!token.lang) return;
-      let lang = (token.lang || "plaintext").match(/\S*/)[0].toLowerCase();
-      if (!Prism.languages[lang]) {
-        require(`prismjs/components/prism-${lang}.js`);
-        if (!Prism.languages[lang]) lang = "plaintext";
-      }
-      const code = Prism.highlight(token.text, Prism.languages[lang], lang);
-      if (code !== token.text) {
-        token.escaped = true;
-        token.text = code;
-      }
-    },
     renderer: {
-      code(code, infoString, escaped) {
-        if (!infoString) return `<pre>${code}</pre>`;
+      code(code, language, escaped) {
+        if (!language) return `<pre>${code}</pre>`;
         // @ts-ignore
-        const lang = infoString.match(/\S*/)[0].toLowerCase();
+        let lang = language.match(/\S*/)[0].toLowerCase();
+        if (!Prism.languages[lang]) {
+          require(`prismjs/components/prism-${lang}.js`);
+          if (!Prism.languages[lang]) lang = "plaintext";
+        }
+        const rendered = Prism.highlight(code, Prism.languages[lang], lang);
         const classAttr = ` class="prism language-${escape(lang, false)}"`;
-        code = code.replace(/\n$/, "");
+        console.log(encodeHTML(code));
         return `
                     <div class="code-container">
                         <span class="lang-text">${escape(lang, false)}</span>
-                        <pre><code${classAttr}>${
-                          escaped ? code : escape(code, true)
-                        }\n</code></pre>
+                        <button class="copy-content" value="${encodeHTML(
+                          code,
+                        )}">
+                            <span>content_paste</span>
+                        </button>
+                        <pre><code${classAttr}>${rendered}</code></pre>
                     </div>
                 `;
       },
@@ -74,7 +70,7 @@ const markdownRenderer = new Marked(
                         <a id="${linkHref}" href="#${linkHref}" class="heading-link">
                             #
                         </a>
-                        ${text}
+                        ${escape(text, false)}
                     </h${level}>
                 `;
       },
@@ -91,7 +87,9 @@ const markdownRenderer = new Marked(
         );
       },
       postprocess(html) {
-        return DOMPurity.sanitize(html);
+        return DOMPurity.sanitize(html, {
+          ADD_ATTR: ["value"]
+        });
       },
     },
   },
