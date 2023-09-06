@@ -16,7 +16,7 @@ const materialSymbols = localFont({
 const notoSans = Noto_Sans({
   subsets: ["latin"],
   display: "auto",
-  weight: ["300", "700"],
+  weight: ["400", "700"],
   variable: "--font-noto-sans",
 });
 
