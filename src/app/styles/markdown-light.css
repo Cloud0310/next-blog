@@ -1,12 +1,12 @@
 @tailwind base;
 
 @layer base {
-  :root {
-    --color-border: theme(colors.neutral.200);
-    --color-pre-background: theme(colors.neutral.100);
-    --color-code-background: theme(colors.neutral.200);
-    --color-link-text: theme(colors.primary.600);
-    --color-background-secondary: theme(colors.neutral.100);
-    --color-text-secondary: theme(colors.neutral.300);
-  }
+    :root:not([class~="dark"]) {
+        --color-border: theme('colors.neutral.200');
+        --color-pre-background: theme('colors.neutral.100');
+        --color-code-background: theme('colors.neutral.200');
+        --color-link-text: theme('colors.primary.600');
+        --color-background-secondary: theme('colors.neutral.100');
+        --color-text-secondary: theme('colors.neutral.400');
+    }
 }
