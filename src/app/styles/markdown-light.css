@@ -8,5 +8,9 @@
         --color-link-text: theme('colors.primary.600');
         --color-background-secondary: theme('colors.neutral.100');
         --color-text-secondary: theme('colors.neutral.400');
+        --color-info-background: theme('colors.neutral.100');
+        --color-tip-background: theme('colors.primary.100');
+        --color-warning-background: theme('colors.warning.100');
+        --color-danger-background: theme('colors.danger.100');
     }
 }
