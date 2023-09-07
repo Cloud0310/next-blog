@@ -88,7 +88,7 @@ const markdownRenderer = new Marked(
       },
       postprocess(html) {
         return DOMPurity.sanitize(html, {
-          ADD_ATTR: ["value"]
+          ADD_ATTR: ["value"],
         });
       },
     },
@@ -121,6 +121,8 @@ export async function generateStaticParams() {
       });
     });
 }
+
+// export
 
 export default function Page({ params }: { params: { slug: string[] } }) {
   const title = params.slug[2];
