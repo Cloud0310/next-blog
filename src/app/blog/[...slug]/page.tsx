@@ -180,8 +180,9 @@ export async function generateStaticParams() {
         const split = date.split("/");
         const year = split[0];
         const month = split[1];
+        const fileName = matter[0] as string;
         return {
-          slug: [year, month, matter[0]],
+          slug: [year, month, fileName.substring(0, fileName.lastIndexOf('.'))]
         };
       });
     });
