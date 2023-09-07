@@ -25,18 +25,32 @@
     }
 
     .markdown-content {
-        font-size: 16px;
+        font-size: 1rem;
         font-weight: 400;
         line-height: 1.5;
         word-wrap: break-word;
     }
 
-    .markdown-content h1,
+    .markdown-content h1.title-text {
+        margin-top: 24px;
+        font-size: 2.3rem;
+        font-weight: 700;
+        padding-bottom: 0.5rem;
+        line-height: 1.5;
+    }
+
+    .markdown-content div.post-date {
+        font-size: 1rem;
+        color: var(--color-text-secondary);
+        margin-bottom: 30px;
+    }
+
+    .markdown-content h1:not(.title-text),
     .markdown-content h2 {
         line-height: 1.25;
     }
 
-    .markdown-content h1,
+    .markdown-content h1:not(.title-text),
     .markdown-content h2,
     .markdown-content h3,
     .markdown-content h4,
@@ -60,7 +74,7 @@
         margin-bottom: 16px;
     }
 
-    .markdown-content h1 {
+    .markdown-content h1:not(.title-text) {
         font-size: 2rem;
         border-bottom: 1px solid var(--color-border);
     }
@@ -109,6 +123,16 @@
         font-size: .75rem;
         text-transform: capitalize;
         transition: opacity 0.6s cubic-bezier(.06, .72, 0, 1.02);
+        z-index: 2;
+    }
+
+    .markdown-content .code-container span.lang-text-static {
+        position: absolute;
+        top: 2px;
+        right: 6px;
+        opacity: 40%;
+        font-size: .75rem;
+        text-transform: capitalize;
         z-index: 2;
     }
 
@@ -274,6 +298,44 @@
     .markdown-content code[class~="prism"],
     .markdown-content pre[class~="prism"] {
         font-family: theme("fontFamily.mono"), monospace;
+    }
+
+    .markdown-content div[class^="block-container-"] {
+        border: 1px solid transparent;
+        border-radius: 8px;
+        padding-left: 16px;
+        padding-right: 16px;
+        line-height: 24px;
+        margin-bottom: 16px;
+    }
+
+    .markdown-content div[class^="block-container-"] p.block-container-title {
+        font-weight: 600;
+    }
+
+    .markdown-content div.block-container-info {
+        background-color: var(--color-info-background);
+    }
+
+    .markdown-content div.block-container-tip {
+        background-color: var(--color-tip-background);
+    }
+
+    .markdown-content div.block-container-warning {
+        background-color: var(--color-warning-background);
+    }
+
+    .markdown-content div.block-container-danger {
+        background-color: var(--color-danger-background);
+    }
+
+    .markdown-content li.task-list-item {
+        list-style-type: none;
+    }
+
+    .markdown-content input[type="checkbox"] {
+        margin: 0 .2em .25em -1.4em;
+        vertical-align: middle;
     }
 
     .markdown-content > :last-child {
