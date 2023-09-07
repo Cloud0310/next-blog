@@ -71,21 +71,21 @@ export default function RootLayout({ children }: { children: any }) {
     >
       <body>
         <ThemeRegistry options={{ key: "joy" }}>
-          <div className="fixed flex justify-between w-full px-5 border-b items-center backdrop-blur-lg z-10 top-0 h-[60px]">
-            <div className="py-2 px-1 flex items-center gap-2.5">
-              <div className="symbol font-bold text-4xl">
+          <div className="fixed top-0 z-10 flex h-[60px] w-full items-center justify-between border-b border-b-neutral-300 px-5 backdrop-blur-lg">
+            <div className="flex items-center gap-2.5 px-1 py-2">
+              <div className="symbol text-4xl font-bold">
                 <span>rocket</span>
               </div>
-              <div className="text-2xl font-bold font-sans">Next Blog</div>
+              <div className="font-sans text-2xl font-bold">Next Blog</div>
             </div>
-            <div className="flex justify-between font-symbol text-4xl w-48">
-              <div className="w-11 border-r mx-4">
+            <div className="flex w-48 justify-between font-symbol text-4xl">
+              <div className="mx-4 w-11 border-r">
                 <span>search</span>
               </div>
               <div>
                 <span>light_mode</span>
               </div>
-              <div className="h-10 w-9 py-0.5 px-0.5">
+              <div className="h-10 w-9 px-0.5 py-0.5">
                 <Image
                   src="/images/github-mark.svg"
                   alt="github"
