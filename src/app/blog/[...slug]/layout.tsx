@@ -1,6 +1,6 @@
 "use client";
 import { ReactNode, useEffect } from "react";
-import TOC from "./TOC";
+import Toc from "./toc";
 
 export default function Layout({ children }: { children: ReactNode }) {
   useEffect(() => {
@@ -22,8 +22,8 @@ export default function Layout({ children }: { children: ReactNode }) {
         <div className=""> {children} </div>
       </div>
       <div className="w-full flex-1 bg-neutral-100">
-        <div className="sticky left-20 top-20 mx-6 my-10 h-[calc(100vh-20rem)] w-[200px] ">
-          <TOC />
+        <div className="sticky left-20 top-20 mx-6 my-10 h-[calc(100vh-20rem)] w-[300px] ">
+          <Toc />
         </div>
       </div>
     </div>
