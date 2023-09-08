@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     for (let i = 0; i < buttons.length; i++) {
       buttons[i].addEventListener("click", () => {
         const button = buttons[i] as HTMLButtonElement;
-        navigator.clipboard.writeText(button.value).then((r) => {
+        navigator.clipboard.writeText(button.value).then(r => {
           button.innerText = "inventory";
           setTimeout(() => (button.innerText = "content_paste"), 1000);
         });

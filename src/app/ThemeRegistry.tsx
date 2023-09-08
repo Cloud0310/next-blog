@@ -46,7 +46,7 @@ export default function ThemeRegistry(props: any) {
         key={cache.key}
         data-emotion={`${cache.key} ${names.join(" ")}`}
         dangerouslySetInnerHTML={{
-          __html: styles,
+          __html: styles
         }}
       />
     );

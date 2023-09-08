@@ -28,11 +28,10 @@ function getEscapeReplacement(ch: string) {
 }
 
 function escape(html: string, encode: boolean) {
-  if (encode)
-    if (escapeTest.test(html))
-      return html.replace(escapeReplace, getEscapeReplacement);
-    else if (escapeTestNoEncode.test(html))
-      return html.replace(escapeReplaceNoEncode, getEscapeReplacement);
+  if (encode) {
+    if (escapeTest.test(html)) return html.replace(escapeReplace, getEscapeReplacement);
+    else if (escapeTestNoEncode.test(html)) return html.replace(escapeReplaceNoEncode, getEscapeReplacement);
+  }
   return html;
 }
 
@@ -79,7 +78,7 @@ const markedRenderer = {
   },
   listitem(text: string, task: boolean, checked: boolean) {
     return `<li${task ? ' class="task-list-item"' : ""}>${text}</li>`;
-  },
+  }
 };
 
 const markedHooks = {
@@ -87,10 +86,7 @@ const markedHooks = {
   preprocess(markdown: string) {
     const matterData = matter(markdown);
     for (const key in matterData.data) this.options[key] = matterData.data[key];
-    return matterData.content.replace(
-      /^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/,
-      "",
-    );
+    return matterData.content.replace(/^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/, "");
   },
   postprocess(html: string) {
     const options = this.options;
@@ -101,9 +97,9 @@ const markedHooks = {
                 `;
     }
     return DOMPurity.sanitize(html, {
-      ADD_ATTR: ["value"],
+      ADD_ATTR: ["value"]
     });
-  },
+  }
 };
 
 const blockContainerExtension = {
@@ -120,7 +116,7 @@ const blockContainerExtension = {
       return {
         type: "blockContainer",
         raw: match[0],
-        text: dataSplit,
+        text: dataSplit
       };
     }
   },
@@ -128,36 +124,33 @@ const blockContainerExtension = {
     const header = token.text[0];
     const headerSplit = header.split(" ");
     const content = token.text.slice(1).join("\n");
-    const title =
-      headerSplit.length === 1
-        ? headerSplit[0].toUpperCase()
-        : headerSplit.slice(1).join(" ");
+    const title = headerSplit.length === 1 ? headerSplit[0].toUpperCase() : headerSplit.slice(1).join(" ");
     return `<div class="block-container-${headerSplit[0].toLowerCase()}">
         <p class="block-container-title">${title}</p>
         ${markdownRendererWithoutContainer.parse(content)}
     </div>`;
-  },
+  }
 };
 
 const markdownRendererWithoutContainer = new Marked(
   markedKatex({
-    throwOnError: false,
+    throwOnError: false
   }),
   {
     renderer: markedRenderer,
-    hooks: markedHooks,
-  },
+    hooks: markedHooks
+  }
 );
 
 const markdownRenderer = new Marked(
   markedKatex({
-    throwOnError: false,
+    throwOnError: false
   }),
   {
     extensions: [blockContainerExtension],
     renderer: markedRenderer,
-    hooks: markedHooks,
-  },
+    hooks: markedHooks
+  }
 );
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -166,23 +159,17 @@ export async function generateStaticParams() {
   if (!fs.existsSync("sources/posts")) return [];
   return await fs.promises
     .readdir("sources/posts")
-    .then((files) =>
-      files.map((file) => [
-        file,
-        fs.readFileSync(`sources/posts/${file}`, "utf-8"),
-      ]),
-    )
-    .then((files) => files.map((file) => [file[0], matter(file[1])]))
-    .then((matters) => {
-      return matters.map((matter) => {
-        const date =
-          (matter[1] as matter.GrayMatterFile<string>).data.date || "0/0";
+    .then(files => files.map(file => [file, fs.readFileSync(`sources/posts/${file}`, "utf-8")]))
+    .then(files => files.map(file => [file[0], matter(file[1])]))
+    .then(matters => {
+      return matters.map(matter => {
+        const date = (matter[1] as matter.GrayMatterFile<string>).data.date || "0/0";
         const split = date.split("/");
         const year = split[0];
         const month = split[1];
         const fileName = matter[0] as string;
         return {
-          slug: [year, month, fileName.substring(0, fileName.lastIndexOf('.'))]
+          slug: [year, month, fileName.substring(0, fileName.lastIndexOf("."))]
         };
       });
     });
@@ -192,10 +179,7 @@ export default function Page({ params }: { params: { slug: string[] } }) {
   const title = params.slug[2];
   if (!fs.existsSync(`sources/posts/${decodeURIComponent(title)}.md`))
     return <div>What? The page has lost in this world line!</div>;
-  const markdown = fs.readFileSync(
-    `sources/posts/${decodeURIComponent(title)}.md`,
-    "utf-8",
-  );
+  const markdown = fs.readFileSync(`sources/posts/${decodeURIComponent(title)}.md`, "utf-8");
   const htmlRendered = markdownRenderer.parse(markdown) as string;
   return (
     <div className="markdown-content">

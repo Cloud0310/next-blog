@@ -11,7 +11,7 @@ const materialSymbols = localFont({
   src: "fonts/material-symbols-outlined.woff2",
   display: "block",
   weight: "100 700",
-  variable: "--font-family-symbols",
+  variable: "--font-family-symbols"
 });
 
 const notoSans = Noto_Sans({
@@ -19,7 +19,7 @@ const notoSans = Noto_Sans({
   style: ["normal", "italic"],
   display: "auto",
   weight: ["400", "700"],
-  variable: "--font-noto-sans",
+  variable: "--font-noto-sans"
 });
 
 const notoSerif = Noto_Serif({
@@ -27,14 +27,14 @@ const notoSerif = Noto_Serif({
   display: "auto",
   style: ["normal", "italic"],
   weight: ["300", "700"],
-  variable: "--font-noto-serif",
+  variable: "--font-noto-serif"
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "700"],
-  variable: "--font-jetbrains-mono",
+  variable: "--font-jetbrains-mono"
 });
 
 const sourceHansSans = localFont({
@@ -42,7 +42,7 @@ const sourceHansSans = localFont({
   style: "normal",
   weight: "350 700",
   display: "auto",
-  src: "fonts/SourceHanSansSC-VF.otf.woff2",
+  src: "fonts/SourceHanSansSC-VF.otf.woff2"
 });
 
 const sourceHanSerif = localFont({
@@ -50,12 +50,12 @@ const sourceHanSerif = localFont({
   style: "normal",
   weight: "350 700",
   display: "auto",
-  src: "fonts/SourceHanSerifSC-VF.otf.woff2",
+  src: "fonts/SourceHanSerifSC-VF.otf.woff2"
 });
 
 export const metadata: Metadata = {
   title: "Next Blog",
-  description: "A blog build by Cloud0310 and Nickid2018",
+  description: "A blog build by Cloud0310 and Nickid2018"
 };
 
 export default function RootLayout({ children }: { children: any }) {
@@ -86,12 +86,7 @@ export default function RootLayout({ children }: { children: any }) {
                 <span>light_mode</span>
               </div>
               <div className="h-10 w-9 px-0.5 py-0.5">
-                <Image
-                  src="/images/github-mark.svg"
-                  alt="github"
-                  width="36"
-                  height="42"
-                />
+                <Image src="/images/github-mark.svg" alt="github" width="36" height="42" />
               </div>
               <div>
                 <span>rss_feed</span>
