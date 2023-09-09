@@ -35,32 +35,42 @@ function escape(html: string, encode: boolean) {
   return html;
 }
 
-const markedRenderer = {
-  code(code: string, language: string | undefined, escaped: boolean) {
-    if (!language) return `<pre>${code}</pre>`;
-    const langData = language.split(" ");
-    let lang = langData[0].toLowerCase();
-    const flags = langData.slice(1);
-    if (!Prism.languages[lang]) {
-      require(`prismjs/components/prism-${lang}.js`);
-      if (!Prism.languages[lang]) lang = "plaintext";
-    }
-    const rendered = Prism.highlight(code, Prism.languages[lang], lang);
-    const classAttr = ` class="prism language-${escape(lang, false)}"`;
-    const buttonCopy = `
+function loadLanguage(lang: string) {
+  lang = lang.toLowerCase();
+  console.log(lang);
+  if (!Prism.languages[lang]) {
+    require(`prismjs/components/prism-${lang}.js`);
+    if (!Prism.languages[lang]) lang = "plaintext";
+  }
+  return lang;
+}
+
+function makeCodeBlock(code: string, lang: string, flags: string[]) {
+  const rendered = Prism.highlight(code, Prism.languages[lang], lang);
+  const classAttr = ` class="prism language-${escape(lang, false)}"`;
+  const buttonCopy = `
                     <button class="copy-content" value="${encodeHTML(code)}">
                         <span>content_paste</span>
                     </button>`;
-    const langText = flags.includes("no-copy")
-      ? `<span class="lang-text-static">${escape(lang, false)}</span>`
-      : `<span class="lang-text">${escape(lang, false)}</span>`;
-    return `
+  const langText = flags.includes("no-copy")
+    ? `<span class="lang-text-static">${escape(lang, false)}</span>`
+    : `<span class="lang-text">${escape(lang, false)}</span>`;
+  return `
                     <div class="code-container">
                         ${langText}
                         ${flags.includes("no-copy") ? "" : buttonCopy}
                         <pre><code${classAttr}>${rendered}</code></pre>
                     </div>
                 `;
+}
+
+const markedRenderer = {
+  code(code: string, language: string | undefined, escaped: boolean) {
+    if (!language) return `<pre>${code}</pre>`;
+    const langData = language.split(" ");
+    let lang = loadLanguage(langData[0]);
+    const flags = langData.slice(1);
+    return makeCodeBlock(code, lang, flags);
   },
   heading(text: string, level: number, raw: string) {
     const linkHref = slug(text);
@@ -102,6 +112,82 @@ const markedHooks = {
   }
 };
 
+function blockContainerCodeGroup(content: string[]) {
+  let inCodeBlock = false;
+  const codeBlocks = [];
+  let currentCodeBlock = [] as string[];
+  for (let i = 0; i < content.length; i++) {
+    const line = content[i];
+    if (line.startsWith("```")) {
+      if (inCodeBlock) {
+        codeBlocks[codeBlocks.length - 1].content = currentCodeBlock.join("\n");
+        currentCodeBlock = [];
+        inCodeBlock = false;
+      } else {
+        inCodeBlock = true;
+        const lineSplit = line.substring(3).split(" ");
+        let language = "plaintext";
+        let fileName = "Unnamed File";
+        const flags = [];
+        if (lineSplit) {
+          language = lineSplit[0];
+          for (let j = 1; j < lineSplit.length; j++) {
+            const part = lineSplit[j];
+            if (part.startsWith("[") && part.endsWith("]")) fileName = part.substring(1, part.length - 1);
+            else flags.push(part);
+          }
+        }
+        codeBlocks.push({
+          lang: language,
+          fileName: fileName,
+          content: "",
+          flags: flags
+        });
+      }
+    } else if (inCodeBlock) currentCodeBlock.push(line);
+  }
+  const codeBlocksRendered = codeBlocks.map(block => {
+    const lang = loadLanguage(block.lang);
+    const rendered = makeCodeBlock(block.content, lang, block.flags);
+    return {
+      fileName: block.fileName,
+      rendered: rendered
+    };
+  });
+  const tabs = [];
+  const blocks = [];
+  const renderUniqueString = Math.random().toString(36).substring(4);
+  for (let i = 0; i < codeBlocksRendered.length; i++) {
+    const block = codeBlocksRendered[i];
+    const tab =
+      i == 0
+        ? `<span class="code-group-tab code-tab-active" id="code-tab-${renderUniqueString}-${i}">${block.fileName}</span>`
+        : `<span class="code-group-tab" id="code-tab-${renderUniqueString}-${i}">${block.fileName}</span>`;
+    const blockRendered =
+      i == 0
+        ? `<div class="code-group-block code-block-active" id="code-block-${renderUniqueString}-${i}">${block.rendered}</div>`
+        : `<div class="code-group-block" id="code-block-${renderUniqueString}-${i}">${block.rendered}</div>`;
+    tabs.push(tab);
+    blocks.push(blockRendered);
+  }
+  return `
+    <div class="block-code-group">
+      <div class="code-group-tabs" id="code-group-tabs-${renderUniqueString}">${tabs.join("\n")}</div>
+      <div class="code-group-blocks" id="code-group-blocks-${renderUniqueString}">${blocks.join("\n")}</div>
+    </div>
+  `;
+}
+
+function blockContainerPlain(headerSplit: string[], content: string) {
+  const title = headerSplit.length === 1 ? headerSplit[0].toUpperCase() : headerSplit.slice(1).join(" ");
+  return `
+    <div class="block-container-${headerSplit[0].toLowerCase()}">
+      <p class="block-container-title">${title}</p>
+      ${markdownRendererWithoutContainer.parse(content)}
+    </div>
+  `;
+}
+
 const blockContainerExtension = {
   name: "blockContainer",
   level: "block",
@@ -123,12 +209,9 @@ const blockContainerExtension = {
   renderer(token: Tokens.Generic) {
     const header = token.text[0];
     const headerSplit = header.split(" ");
-    const content = token.text.slice(1).join("\n");
-    const title = headerSplit.length === 1 ? headerSplit[0].toUpperCase() : headerSplit.slice(1).join(" ");
-    return `<div class="block-container-${headerSplit[0].toLowerCase()}">
-        <p class="block-container-title">${title}</p>
-        ${markdownRendererWithoutContainer.parse(content)}
-    </div>`;
+    const content = token.text.slice(1);
+    if (headerSplit[0] === "code-group") return blockContainerCodeGroup(content);
+    else return blockContainerPlain(headerSplit, content.join("\n"));
   }
 };
 
