@@ -1,6 +1,7 @@
 "use client";
 import { ReactNode, useEffect } from "react";
 import Toc from "./toc";
+import { Button } from "@mui/joy";
 
 export default function Layout({ children }: { children: ReactNode }) {
   useEffect(() => {
@@ -8,7 +9,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     for (let i = 0; i < buttons.length; i++) {
       buttons[i].addEventListener("click", () => {
         const button = buttons[i] as HTMLButtonElement;
-        navigator.clipboard.writeText(button.value).then(r => {
+        navigator.clipboard.writeText(button.value).then(() => {
           button.innerText = "inventory";
           setTimeout(() => (button.innerText = "content_paste"), 1000);
         });
