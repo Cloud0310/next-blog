@@ -77,26 +77,73 @@ export default function Toc() {
     }
   }, [titles.length]);
   return (
-    <div>
-      <div className="my-2 rounded px-3 font-sans font-bold text-neutral-300 ">On this page</div>
-      <Tabs aria-label="tabs" orientation="vertical" variant="soft" defaultValue={0} sx={{ bgcolor: "transparent" }}>
+    <div className="sticky left-20 top-[calc(60px+2.5rem)] m-10 w-64 rounded-2xl bg-neutral-200 px-3 py-5 pb-[1em] ">
+      <div className="h-8">
+        <span className="font-sans font-bold text-neutral-500">On this page</span>
+      </div>
+      {/*// TODO change toc to compatible with menu tabs*/}
+      <Tabs
+        aria-label="tabs"
+        orientation="vertical"
+        variant="soft"
+        defaultValue={0}
+        sx={{
+          bgcolor: "neutral.200"
+        }}
+      >
         <TabList
           disableUnderline
           id="toc-list"
           sx={{
-            p: 0.5,
-            gap: 0.5,
-            borderRadius: "xl",
+            borderRadius: "5px",
+            display: "flex",
             bgcolor: "background.level1",
             [`& .${tabClasses.root}[aria-selected="true"]`]: {
-              boxShadow: "sm",
-              bgcolor: "background.surface"
-            }
+              color: "neutral.600",
+              fontWeight: "500",
+              borderRadius: "5px",
+              "&::after": {
+                transition: "color 0.2s ease-in-out",
+                height: "60%",
+                width: "3px",
+                borderTopLeftRadius: "5px",
+                borderTopRightRadius: "5px",
+                bgcolor: "primary.500"
+              }
+            },
+            width: "100%"
           }}
         >
           {Array.from(titles).map((title: any, index: number) => {
             return (
-              <Tab disableIndicator key={index} aria-selected={currentCursor === index}>
+              <Tab
+                indicatorPlacement="left"
+                key={index}
+                aria-selected={currentCursor === index}
+                className="truncate text-left"
+                sx={{
+                  color: "neutral.500",
+                  "&:hover": {
+                    color: "neutral.700",
+                    fontWeight: "500",
+                    "&::after": {
+                      transition: "color 0.2s ease-in-out",
+                      height: "60%",
+                      width: "3px",
+                      borderTopLeftRadius: "3px",
+                      borderTopRightRadius: "3px",
+                      bgcolor: "neutral.500"
+                    }
+                  }
+                }}
+                slotProps={{
+                  root: {
+                    onClick: () => {
+                      title.scrollIntoView({ behavior: "smooth" });
+                    }
+                  }
+                }}
+              >
                 {prepareTitle(title.innerText)}
               </Tab>
             );

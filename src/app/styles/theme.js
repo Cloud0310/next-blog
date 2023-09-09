@@ -1,6 +1,7 @@
 import { extendTheme } from "@mui/joy/styles";
 
 const theme = extendTheme({
+  fontFamily: ["var(--font-noto-sans)", "var(--font-source-hans-sans)", "sans-serif"].join(","),
   colorSchemes: {
     light: {
       palette: {
