@@ -93,9 +93,65 @@
         overflow: auto;
         font-size: 80%;
         line-height: 1.45;
-        background-color: var(--color-pre-background);
+        background-color: var(--color-background-pre);
         border-radius: 6px;
         scrollbar-width: thin;
+    }
+
+    .markdown-content .code-group-tabs {
+        margin-left: 0;
+        margin-right: 0;
+        border-radius: 6px 6px 0 0;
+        background-color: var(--color-background-pre);
+        position: relative;
+        padding: 0 12px;
+        overflow: auto hidden;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .markdown-content .code-group-tabs span {
+        position: relative;
+        padding: .75em 12px calc(.75em - 2px);
+        line-height: 2.5rem;
+        font-weight: 500;
+        font-size: 90%;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: color .25s;
+        color: var(--color-text-inactive);
+    }
+
+    .markdown-content .code-group-tabs span:hover,
+    .markdown-content .code-group-tabs span.code-tab-active {
+        color: var(--color-text);
+    }
+
+    .markdown-content .code-group-tabs span::after {
+        position: absolute;
+        right: 8px;
+        bottom: -1px;
+        left: 8px;
+        height: 2px;
+        content: "";
+        background-color: transparent;
+        transition: background-color .25s;
+        z-index: 1;
+    }
+
+    .markdown-content .code-group-tabs span.code-tab-active::after {
+        background-color: var(--color-text-link);
+    }
+
+    .markdown-content .code-group-blocks pre {
+        border-radius: 0 0 6px 6px;
+    }
+
+    .markdown-content .code-group-block {
+        display: none;
+    }
+
+    .markdown-content .code-group-block.code-block-active {
+        display: block;
     }
 
     .markdown-content pre::-webkit-scrollbar {
@@ -151,7 +207,7 @@
         border: 1px solid var(--color-border);
         border-radius: 4px;
         opacity: 0;
-        background-color: var(--color-pre-background);
+        background-color: var(--color-background-pre);
         transition: opacity 0.6s cubic-bezier(.06, .72, 0, 1.02);
         z-index: 3;
     }
@@ -161,7 +217,7 @@
     }
 
     .markdown-content a {
-        color: var(--color-link-text);
+        color: var(--color-text-link);
         background-color: transparent;
         text-decoration: none;
     }
@@ -176,7 +232,7 @@
         font-size: 85%;
         font-weight: 400;
         white-space: break-spaces;
-        background-color: var(--color-code-background);
+        background-color: var(--color-background-code);
         border-radius: 6px;
     }
 
@@ -314,19 +370,19 @@
     }
 
     .markdown-content div.block-container-info {
-        background-color: var(--color-info-background);
+        background-color: var(--color-background-info);
     }
 
     .markdown-content div.block-container-tip {
-        background-color: var(--color-tip-background);
+        background-color: var(--color-background-tip);
     }
 
     .markdown-content div.block-container-warning {
-        background-color: var(--color-warning-background);
+        background-color: var(--color-background-warning);
     }
 
     .markdown-content div.block-container-danger {
-        background-color: var(--color-danger-background);
+        background-color: var(--color-background-danger);
     }
 
     .markdown-content li.task-list-item {
