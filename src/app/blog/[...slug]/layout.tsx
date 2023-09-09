@@ -2,9 +2,34 @@
 import { ReactNode, useEffect } from "react";
 import Toc from "./toc";
 import { Button } from "@mui/joy";
+import Prism from "prismjs";
 
 export default function Layout({ children }: { children: ReactNode }) {
   useEffect(() => {
+    const mainContent = document.querySelector(".markdown-content");
+    if (mainContent) {
+      const useLanguages = mainContent.querySelectorAll('pre[class*="language-"]');
+      const collectedLanguages = [] as string[];
+      for (let i = 0; i < useLanguages.length; i++) {
+        const splitData = useLanguages[i].className.split(" ");
+        for (let j = 0; j < splitData.length; j++) {
+          const data = splitData[j];
+          if (data.startsWith("language-")) {
+            const language = data.substring(9);
+            if (!collectedLanguages.includes(language)) collectedLanguages.push(language);
+          }
+        }
+      }
+      collectedLanguages.sort();
+      for (let i = 0; i < collectedLanguages.length; i++) {
+        const language = collectedLanguages[i];
+        if (language) require(`prismjs/components/prism-${language}.js`);
+      }
+      require("prismjs/plugins/line-numbers/prism-line-numbers.js");
+      require("prismjs/plugins/line-highlight/prism-line-highlight.js");
+      Prism.highlightAll();
+    }
+
     const buttons = document.getElementsByClassName("copy-content");
     for (let i = 0; i < buttons.length; i++) {
       buttons[i].addEventListener("click", () => {
@@ -24,7 +49,6 @@ export default function Layout({ children }: { children: ReactNode }) {
         const renderUniqueString = tabIdSplit[2];
         const index = parseInt(tabIdSplit[3]);
         const codeGroup = document.getElementById(`code-group-blocks-${renderUniqueString}`);
-        console.log(codeGroup);
         if (codeGroup) {
           const codeBlocks = codeGroup.getElementsByClassName("code-group-block");
           for (let j = 0; j < codeBlocks.length; j++) {

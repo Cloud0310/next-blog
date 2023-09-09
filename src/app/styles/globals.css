@@ -1,6 +1,8 @@
 @import "./markdown-light.css";
 @import "./markdown-dark.css";
 @import "prismjs/themes/prism.css";
+@import "prismjs/plugins/line-numbers/prism-line-numbers.css";
+@import "prismjs/plugins/line-highlight/prism-line-highlight.css";
 
 @tailwind base;
 @tailwind components;
@@ -226,7 +228,7 @@
         text-decoration: underline;
     }
 
-    .markdown-content code:not([class~="prism"]) {
+    .markdown-content code:not([class*="language-"]) {
         padding: .2em .4em;
         margin: 0;
         font-size: 85%;
@@ -351,8 +353,8 @@
         max-width: 100%;
     }
 
-    .markdown-content code[class~="prism"],
-    .markdown-content pre[class~="prism"] {
+    .markdown-content code,
+    .markdown-content pre {
         font-family: theme("fontFamily.mono"), monospace;
     }
 

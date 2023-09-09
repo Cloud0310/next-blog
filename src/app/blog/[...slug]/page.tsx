@@ -37,7 +37,6 @@ function escape(html: string, encode: boolean) {
 
 function loadLanguage(lang: string) {
   lang = lang.toLowerCase();
-  console.log(lang);
   if (!Prism.languages[lang]) {
     require(`prismjs/components/prism-${lang}.js`);
     if (!Prism.languages[lang]) lang = "plaintext";
@@ -46,8 +45,30 @@ function loadLanguage(lang: string) {
 }
 
 function makeCodeBlock(code: string, lang: string, flags: string[]) {
-  const rendered = Prism.highlight(code, Prism.languages[lang], lang);
-  const classAttr = ` class="prism language-${escape(lang, false)}"`;
+  let classArray = ["prism", "line-numbers", `language-${escape(lang, false)}`];
+  let dataStart = "1";
+  if (flags.includes("no-line-numbers"))
+    classArray = classArray.filter((value, index, array) => value !== "line-numbers");
+  const setDataStart = flags.find(value => value.startsWith("data-start="));
+  if (setDataStart) {
+    const dataStartSplit = setDataStart.split("=", 2);
+    if (dataStartSplit.length === 2) dataStart = dataStartSplit[1];
+  }
+  let preAttr = "";
+  if (!flags.includes("no-line-numbers")) preAttr += `data-start="${dataStart}" `;
+  const setDataLines = flags.find(value => value.startsWith("data-lines="));
+  if (setDataLines) {
+    const dataLinesSplit = setDataLines.split("=", 2);
+    if (dataLinesSplit.length === 2) preAttr += `data-line="${dataLinesSplit[1]}" `;
+  }
+  const setLinkableLineNumbers = flags.find(value => value.startsWith("linkable-id="));
+  if (setLinkableLineNumbers) {
+    const linkableLineNumbersSplit = setLinkableLineNumbers.split("=", 2);
+    if (linkableLineNumbersSplit.length === 2) {
+      preAttr += `id="${linkableLineNumbersSplit[1]}" `;
+      classArray.push("linkable-line-numbers");
+    }
+  }
   const buttonCopy = `
                     <button class="copy-content" value="${encodeHTML(code)}">
                         <span>content_paste</span>
@@ -59,7 +80,7 @@ function makeCodeBlock(code: string, lang: string, flags: string[]) {
                     <div class="code-container">
                         ${langText}
                         ${flags.includes("no-copy") ? "" : buttonCopy}
-                        <pre><code${classAttr}>${rendered}</code></pre>
+                        <pre ${preAttr} class="${classArray.join(" ")}"><code>${code}</code></pre>
                     </div>
                 `;
 }
@@ -107,7 +128,7 @@ const markedHooks = {
                 `;
     }
     return DOMPurity.sanitize(html, {
-      ADD_ATTR: ["value"]
+      ADD_ATTR: ["value", "data-start", "data-line"]
     });
   }
 };
