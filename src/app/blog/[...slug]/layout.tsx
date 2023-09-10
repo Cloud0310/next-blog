@@ -8,6 +8,10 @@ export default function Layout({ children }: { children: ReactNode }) {
   useEffect(() => {
     const mainContent = document.querySelector(".markdown-content");
     if (mainContent) {
+      require("prismjs/components/prism-diff.js");
+      require("prismjs/plugins/diff-highlight/prism-diff-highlight.js");
+      require("prismjs/plugins/line-numbers/prism-line-numbers.js");
+      require("prismjs/plugins/line-highlight/prism-line-highlight.js");
       const useLanguages = mainContent.querySelectorAll('pre[class*="language-"]');
       const collectedLanguages = [] as string[];
       for (let i = 0; i < useLanguages.length; i++) {
@@ -15,7 +19,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         for (let j = 0; j < splitData.length; j++) {
           const data = splitData[j];
           if (data.startsWith("language-")) {
-            const language = data.substring(9);
+            const language = data.startsWith("language-diff-") ? data.substring(14) : data.substring(9);
             if (!collectedLanguages.includes(language)) collectedLanguages.push(language);
           }
         }
@@ -25,8 +29,6 @@ export default function Layout({ children }: { children: ReactNode }) {
         const language = collectedLanguages[i];
         if (language) require(`prismjs/components/prism-${language}.js`);
       }
-      require("prismjs/plugins/line-numbers/prism-line-numbers.js");
-      require("prismjs/plugins/line-highlight/prism-line-highlight.js");
       Prism.highlightAll();
     }
 

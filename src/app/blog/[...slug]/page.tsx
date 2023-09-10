@@ -49,6 +49,11 @@ function makeCodeBlock(code: string, lang: string, flags: string[]) {
   let dataStart = "1";
   if (flags.includes("no-line-numbers"))
     classArray = classArray.filter((value, index, array) => value !== "line-numbers");
+  if (flags.includes("diff")) {
+    classArray = classArray.filter((value, index, array) => !value.startsWith("language-"));
+    classArray.push(`language-diff-${escape(lang, false)}`);
+  }
+  if (flags.includes("diff-highlight")) classArray.push("diff-highlight");
   const setDataStart = flags.find(value => value.startsWith("data-start="));
   if (setDataStart) {
     const dataStartSplit = setDataStart.split("=", 2);
