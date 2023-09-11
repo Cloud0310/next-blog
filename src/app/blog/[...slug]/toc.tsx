@@ -4,7 +4,7 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 
 function prepareTitle(title: string) {
-  const preprocessed = title.substring(2);
+  const preprocessed = title.startsWith("#") ? title.substring(2) : title;
   if (/[^(（)）]+[（(].+?[）)]/.test(preprocessed)) {
     const matchedSubs = preprocessed.match(/[（(].+[）)]/);
     if (matchedSubs) {

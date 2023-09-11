@@ -397,6 +397,26 @@
         vertical-align: middle;
     }
 
+    .markdown-content .references ol {
+        list-style-type: none;
+    }
+
+    .markdown-content .references ol li {
+        margin: 16px 0;
+    }
+
+    .reflink-hover {
+        position: absolute;
+        background-color: theme('colors.neutral.100');
+        border: 1px solid theme('colors.neutral.200');
+        border-radius: 4px;
+    }
+
+    .reflink-hover p {
+        padding: .25rem .5rem;
+        font-size: 80%;
+    }
+
     .markdown-content > :last-child {
         margin-bottom: 0 !important;
     }

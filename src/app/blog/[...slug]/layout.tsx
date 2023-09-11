@@ -42,6 +42,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         });
       });
     }
+
     const codeGroupTabs = document.getElementsByClassName("code-group-tab");
     for (let i = 0; i < codeGroupTabs.length; i++)
       codeGroupTabs[i].addEventListener("click", () => {
@@ -77,6 +78,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           }
         }
       });
+
     const mainTitle = document.querySelector("h1.title-text");
     const mainTitleObserver = new IntersectionObserver(entries => {
       entries.forEach(e => {
@@ -94,6 +96,34 @@ export default function Layout({ children }: { children: ReactNode }) {
       });
     });
     if (mainTitle) mainTitleObserver.observe(mainTitle);
+
+    const refLinks = document.getElementsByClassName("reference");
+    for (let i = 0; i < refLinks.length; i++) {
+      const refLink = refLinks[i] as HTMLElement;
+      refLink.addEventListener("mouseenter", e => {
+        const hoverElement = document.createElement("div");
+        hoverElement.id = `reflink-hover-${i}`;
+        hoverElement.classList.add("reflink-hover");
+        const linkTo = document.getElementById(
+          "cite-note-data_" + refLink.id.substring(refLink.id.lastIndexOf("_") + 1).split("-")[0]
+        );
+        console.log(refLink.id.substring(refLink.id.lastIndexOf("_") + 1).split("-")[0]);
+        if (linkTo) {
+          hoverElement.innerHTML = `<p>${linkTo.innerHTML}</p>`;
+          hoverElement.style.bottom = `${
+            document.documentElement.clientHeight -
+            (refLink.getClientRects()[0].top + document.documentElement.scrollTop) +
+            5
+          }px`;
+          hoverElement.style.left = `${refLink.getClientRects()[0].right + document.documentElement.scrollLeft + 5}px`;
+          document.body.appendChild(hoverElement);
+        }
+      });
+      refLink.addEventListener("mouseleave", () => {
+        const hoverElement = document.getElementById(`reflink-hover-${i}`);
+        if (hoverElement) hoverElement.remove();
+      });
+    }
   }, []);
   return (
     <div className="relative top-[60px] flex h-full w-full font-sans">

@@ -3,7 +3,7 @@ import { marked, Marked, Tokens } from "marked";
 import markedKatex from "marked-katex-extension";
 import Prism from "prismjs";
 import matter from "gray-matter";
-import parse from "html-react-parser";
+import parse, { htmlToDOM } from "html-react-parser";
 import { slug } from "github-slugger";
 import DOMPurity from "isomorphic-dompurify";
 //@ts-ignore
@@ -91,6 +91,7 @@ function makeCodeBlock(code: string, lang: string, flags: string[]) {
 }
 
 const markedRenderer = {
+  options: MarkedOptions,
   code(code: string, language: string | undefined, escaped: boolean) {
     if (!language) return `<pre>${code}</pre>`;
     const langData = language.split(" ");
@@ -114,6 +115,24 @@ const markedRenderer = {
   },
   listitem(text: string, task: boolean, checked: boolean) {
     return `<li${task ? ' class="task-list-item"' : ""}>${text}</li>`;
+  },
+  html(html: string) {
+    const preDOM = htmlToDOM(html);
+    const dom = preDOM[0] || preDOM;
+    //@ts-ignore
+    if (dom.name && dom.name === "ref") {
+      //@ts-ignore
+      const name = dom.attribs["name"] || this.options.counter.toString();
+      let counter = this.options.map[name] || this.options.counter++;
+      this.options.map[name] = counter;
+      let secondaryIndex = 1;
+      if (this.options.refLinks[counter]) secondaryIndex = ++this.options.refLinks[counter];
+      else this.options.refLinks[counter] = 1;
+      //@ts-ignore
+      const data = dom.attribs["value"];
+      if (data && data.length > 0) this.options.data[counter] = data;
+      return `<sup class="reference" id="cite-ref_${counter}-${secondaryIndex}"><a href="#cite-note_${counter}">[${counter}]</a></sup>`;
+    } else return html;
   }
 };
 
@@ -122,6 +141,10 @@ const markedHooks = {
   preprocess(markdown: string) {
     const matterData = matter(markdown);
     for (const key in matterData.data) this.options[key] = matterData.data[key];
+    this.options["map"] = {} as { [key: string]: number };
+    this.options["data"] = {} as { [key: number]: string };
+    this.options["refLinks"] = {} as { [key: number]: number };
+    this.options["counter"] = 1;
     return matterData.content.replace(/^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/, "");
   },
   postprocess(html: string) {
@@ -131,6 +154,35 @@ const markedHooks = {
                 <div class="post-date">${options["date"]}</div>
                     ${html}
                 `;
+    }
+    if (options.counter > 1) {
+      html += '<div class="references">';
+      html += "<h2>References</h2>";
+      html += "<ol>";
+      for (let i = 1; i < options.counter; i++) {
+        const data = options.data[i];
+        if (data && data.length > 0) {
+          if (options.refLinks[i] == 1)
+            html += `<li id="cite-note_${i}">${i}. <a href="#cite-ref_${i}-1">↑</a> <span id="cite-note-data_${i}">
+                ${markdownRendererWithoutContainer
+                  .parse(data)
+                  .toString()
+                  .replace("<p>", "")
+                  .replace("</p>", "")}</span></li>`;
+          else {
+            html += `<li id="cite-note_${i}">${i}.`;
+            for (let j = 0; j < options.refLinks[i]; j++)
+              html += ` <sup><a href="#cite-ref_${i}-${j + 1}">${i}.${j + 1}</a></sup>`;
+            html += ` <span id="cite-note-data_${i}">${markdownRendererWithoutContainer
+              .parse(data)
+              .toString()
+              .replace("<p>", "")
+              .replace("</p>", "")}</span></li>`;
+          }
+        }
+      }
+      html += "</ol>";
+      html += "</div>";
     }
     return DOMPurity.sanitize(html, {
       ADD_ATTR: ["value", "data-start", "data-line"]
@@ -246,6 +298,7 @@ const markdownRendererWithoutContainer = new Marked(
     throwOnError: false
   }),
   {
+    extensions: [],
     renderer: markedRenderer,
     hooks: markedHooks
   }
