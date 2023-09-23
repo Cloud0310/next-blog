@@ -21,7 +21,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         const data = splitData[j];
         if (data.startsWith("language-")) {
           const language = data.startsWith("language-diff-") ? data.substring(14) : data.substring(9);
-          if (!collectedLanguages.includes(language)) collectedLanguages.push(language);
+          if (!collectedLanguages.includes(language) && language !== "plaintext") collectedLanguages.push(language);
         }
       }
     }

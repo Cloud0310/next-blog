@@ -83,7 +83,7 @@ function makeCodeBlock(code: string, lang: string, flags: string[]) {
                     <div class="code-container">
                         ${langText}
                         ${flags.includes("no-copy") ? "" : buttonCopy}
-                        <pre ${preAttr} class="${classArray.join(" ")}"><code>${code}</code></pre>
+                        <pre ${preAttr} class="${classArray.join(" ")}"><code>${escape(code, true)}</code></pre>
                     </div>
                 `;
 }
@@ -91,7 +91,7 @@ function makeCodeBlock(code: string, lang: string, flags: string[]) {
 const markedRenderer = {
   options: MarkedOptions,
   code(code: string, language: string | undefined, escaped: boolean) {
-    if (!language) return `<pre>${code}</pre>`;
+    if (!language) return `<pre>${escape(code, true)}</pre>`;
     const langData = language.split(" ");
     let lang = loadLanguage(langData[0]);
     const flags = langData.slice(1);
