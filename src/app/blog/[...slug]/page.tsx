@@ -73,7 +73,7 @@ function makeCodeBlock(code: string, lang: string, flags: string[]) {
     }
   }
   const buttonCopy = `
-                    <button class="copy-content" value="${code}">
+                    <button class="copy-content">
                         <span>content_paste</span>
                     </button>`;
   const langText = flags.includes("no-copy")

@@ -67,6 +67,8 @@ export default function RootLayout({ children }: { children: any }) {
       ${notoSerif.variable} 
       ${notoSans.variable} 
       ${jetbrainsMono.variable}
+      scroll-smooth
+      scroll-pt-[60px]
     `}
     >
       <body>

@@ -7,36 +7,36 @@ import Prism from "prismjs";
 export default function Layout({ children }: { children: ReactNode }) {
   useEffect(() => {
     const mainContent = document.querySelector(".markdown-content");
-    if (mainContent) {
-      require("prismjs/components/prism-diff.js");
-      require("prismjs/plugins/diff-highlight/prism-diff-highlight.js");
-      require("prismjs/plugins/line-numbers/prism-line-numbers.js");
-      require("prismjs/plugins/line-highlight/prism-line-highlight.js");
-      const useLanguages = mainContent.querySelectorAll('pre[class*="language-"]');
-      const collectedLanguages = [] as string[];
-      for (let i = 0; i < useLanguages.length; i++) {
-        const splitData = useLanguages[i].className.split(" ");
-        for (let j = 0; j < splitData.length; j++) {
-          const data = splitData[j];
-          if (data.startsWith("language-")) {
-            const language = data.startsWith("language-diff-") ? data.substring(14) : data.substring(9);
-            if (!collectedLanguages.includes(language)) collectedLanguages.push(language);
-          }
+    if (!mainContent) return;
+
+    require("prismjs/components/prism-diff.js");
+    require("prismjs/plugins/diff-highlight/prism-diff-highlight.js");
+    require("prismjs/plugins/line-numbers/prism-line-numbers.js");
+    require("prismjs/plugins/line-highlight/prism-line-highlight.js");
+    const useLanguages = mainContent.querySelectorAll('pre[class*="language-"]');
+    const collectedLanguages = [] as string[];
+    for (let i = 0; i < useLanguages.length; i++) {
+      const splitData = useLanguages[i].className.split(" ");
+      for (let j = 0; j < splitData.length; j++) {
+        const data = splitData[j];
+        if (data.startsWith("language-")) {
+          const language = data.startsWith("language-diff-") ? data.substring(14) : data.substring(9);
+          if (!collectedLanguages.includes(language)) collectedLanguages.push(language);
         }
       }
-      collectedLanguages.sort();
-      for (let i = 0; i < collectedLanguages.length; i++) {
-        const language = collectedLanguages[i];
-        if (language) require(`prismjs/components/prism-${language}.js`);
-      }
-      Prism.highlightAll();
     }
+    collectedLanguages.sort();
+    for (let i = 0; i < collectedLanguages.length; i++) {
+      const language = collectedLanguages[i];
+      if (language) require(`prismjs/components/prism-${language}.js`);
+    }
+    Prism.highlightAll();
 
     const buttons = document.getElementsByClassName("copy-content");
     for (let i = 0; i < buttons.length; i++) {
       buttons[i].addEventListener("click", () => {
         const button = buttons[i] as HTMLButtonElement;
-        navigator.clipboard.writeText(button.value).then(() => {
+        navigator.clipboard.writeText((button.nextElementSibling as HTMLPreElement).innerText).then(() => {
           button.innerText = "inventory";
           setTimeout(() => (button.innerText = "content_paste"), 1000);
         });
@@ -107,7 +107,6 @@ export default function Layout({ children }: { children: ReactNode }) {
         const linkTo = document.getElementById(
           "cite-note-data_" + refLink.id.substring(refLink.id.lastIndexOf("_") + 1).split("-")[0]
         );
-        console.log(refLink.id.substring(refLink.id.lastIndexOf("_") + 1).split("-")[0]);
         if (linkTo) {
           hoverElement.innerHTML = `<p>${linkTo.innerHTML}</p>`;
           hoverElement.style.bottom = `${
@@ -128,7 +127,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="relative top-[60px] flex h-full w-full font-sans">
       <div className="flex-1 bg-neutral-100 "></div>
-      <div className="min-h-[calc(100vh-60px)] flex-1 justify-center border-x-neutral-300 px-20 pb-20 lg:min-w-[800px] ">
+      <div className="min-h-[calc(100vh-60px)] flex-1 border-x-neutral-300 px-20 pb-80 lg:min-w-[800px]">
         <div> {children} </div>
       </div>
       <div className="w-full flex-1 bg-neutral-100">
