@@ -6,9 +6,7 @@ import matter from "gray-matter";
 import parse, { htmlToDOM } from "html-react-parser";
 import { slug } from "github-slugger";
 import DOMPurity from "isomorphic-dompurify";
-//@ts-ignore
-import { encodeHTML } from "entities";
-//@ts-ignore
+// @ts-ignore
 import MarkedOptions = marked.MarkedOptions;
 
 // Marked Highlight, modified from marked-highlight --------------------------------------------------------------------
@@ -75,7 +73,7 @@ function makeCodeBlock(code: string, lang: string, flags: string[]) {
     }
   }
   const buttonCopy = `
-                    <button class="copy-content" value="${encodeHTML(code)}">
+                    <button class="copy-content" value="${code}">
                         <span>content_paste</span>
                     </button>`;
   const langText = flags.includes("no-copy")
