@@ -8,6 +8,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     const mainContent = document.querySelector(".markdown-content");
     if (!mainContent) return;
 
+    // Highlight code in client side -----------------------------------------------------------------------------------
     require("prismjs/components/prism-diff.js");
     require("prismjs/plugins/diff-highlight/prism-diff-highlight.js");
     require("prismjs/plugins/line-numbers/prism-line-numbers.js");
@@ -31,6 +32,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     }
     Prism.highlightAll();
 
+    // Copy content button for code blocks -----------------------------------------------------------------------------
     const buttons = document.getElementsByClassName("copy-content");
     for (let i = 0; i < buttons.length; i++) {
       buttons[i].addEventListener("click", () => {
@@ -42,6 +44,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       });
     }
 
+    // Code group -----------------------------------------------------------------------------------------------------
     const codeGroupTabs = document.getElementsByClassName("code-group-tab");
     for (let i = 0; i < codeGroupTabs.length; i++)
       codeGroupTabs[i].addEventListener("click", () => {
@@ -78,6 +81,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         }
       });
 
+    // Scroll Top ------------------------------------------------------------------------------------------------------
     const mainTitle = document.querySelector("h1.title-text");
     const mainTitleObserver = new IntersectionObserver(entries => {
       entries.forEach(e => {
@@ -96,6 +100,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     });
     if (mainTitle) mainTitleObserver.observe(mainTitle);
 
+    // Reference Link Hover --------------------------------------------------------------------------------------------
     const refLinks = document.getElementsByClassName("reference");
     for (let i = 0; i < refLinks.length; i++) {
       const refLink = refLinks[i] as HTMLElement;

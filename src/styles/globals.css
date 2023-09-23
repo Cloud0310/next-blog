@@ -47,7 +47,7 @@
     }
 
     #toc li a[aria-current]::before {
-        background-color: var(--color-text-link);
+        background-color: theme('colors.primary.300');
     }
 }
 
