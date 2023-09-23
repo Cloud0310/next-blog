@@ -1,6 +1,6 @@
 "use client";
 import { ReactNode, useEffect } from "react";
-import Toc from "../../components/toc";
+import Toc from "@/components/toc";
 import { Button } from "@mui/joy";
 import Prism from "prismjs";
 

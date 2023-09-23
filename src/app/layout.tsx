@@ -1,5 +1,5 @@
 import React from "react";
-import "./styles/globals.css";
+import "@/styles/globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { JetBrains_Mono, Noto_Sans, Noto_Serif } from "next/font/google";
@@ -8,7 +8,7 @@ import Image from "next/image";
 
 const materialSymbols = localFont({
   style: "normal",
-  src: "fonts/material-symbols-outlined.woff2",
+  src: "../fonts/material-symbols-outlined.woff2",
   display: "block",
   weight: "100 700",
   variable: "--font-family-symbols"
@@ -42,7 +42,7 @@ const sourceHansSans = localFont({
   style: "normal",
   weight: "350 700",
   display: "auto",
-  src: "fonts/SourceHanSansSC-VF.otf.woff2"
+  src: "../fonts/SourceHanSansSC-VF.otf.woff2"
 });
 
 const sourceHanSerif = localFont({
@@ -50,7 +50,7 @@ const sourceHanSerif = localFont({
   style: "normal",
   weight: "350 700",
   display: "auto",
-  src: "fonts/SourceHanSerifSC-VF.otf.woff2"
+  src: "../fonts/SourceHanSerifSC-VF.otf.woff2"
 });
 
 export const metadata: Metadata = {

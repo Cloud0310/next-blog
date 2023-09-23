@@ -1,5 +1,9 @@
-@import "./markdown-light.css";
-@import "./markdown-dark.css";
+@import "markdown-light.css";
+@import "markdown-dark.css";
+@import "../../node_modules/prismjs/themes/prism.css";
+@import "../../node_modules/prismjs/plugins/line-numbers/prism-line-numbers.css";
+@import "../../node_modules/prismjs/plugins/line-highlight/prism-line-highlight.css";
+@import "../../node_modules/prismjs/plugins/diff-highlight/prism-diff-highlight.css";
 
 @tailwind base;
 @tailwind components;
@@ -78,6 +82,10 @@
         background-color: var(--color-background-pre);
         border-radius: 6px;
         scrollbar-width: thin;
+    }
+
+    .markdown-content pre span.token {
+        font-family: theme("fontFamily.mono"), monospace;
     }
 
     .markdown-content .code-group-tabs {

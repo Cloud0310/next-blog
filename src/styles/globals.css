@@ -1,8 +1,4 @@
-@import "./markdown.css";
-@import "prismjs/themes/prism.css";
-@import "prismjs/plugins/line-numbers/prism-line-numbers.css";
-@import "prismjs/plugins/line-highlight/prism-line-highlight.css";
-@import "prismjs/plugins/diff-highlight/prism-diff-highlight.css";
+@import "markdown.css";
 
 @tailwind base;
 @tailwind components;
