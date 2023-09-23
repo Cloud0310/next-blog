@@ -1,7 +1,6 @@
 "use client";
 import { ReactNode, useEffect } from "react";
 import Toc from "@/components/toc";
-import { Button } from "@mui/joy";
 import Prism from "prismjs";
 
 export default function Layout({ children }: { children: ReactNode }) {
@@ -134,20 +133,17 @@ export default function Layout({ children }: { children: ReactNode }) {
         <Toc />
       </div>
       <div className="fixed bottom-4 right-4 z-50 transition-opacity" id="scroll-to-top">
-        <Button
-          color="primary"
+        <button
+          type="button"
           onClick={() => {
-            window.scrollTo({
-              top: 0,
-              behavior: "smooth"
-            });
+            window.scrollTo(0, 0);
           }}
-          variant="soft"
-          size="lg"
-          className="h-12 w-12"
+          className="h-12 w-12 items-center justify-center rounded-full opacity-70 shadow-md hover:bg-neutral-300 hover:shadow-xl"
         >
-          <span className="font-symbol text-2xl">arrow_upward</span>
-        </Button>
+          <span className="font-symbol text-2xl text-neutral-700" tabIndex={1}>
+            arrow_upward
+          </span>
+        </button>
       </div>
     </div>
   );

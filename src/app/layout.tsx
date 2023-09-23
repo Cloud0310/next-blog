@@ -3,7 +3,6 @@ import "@/styles/globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { JetBrains_Mono, Noto_Sans, Noto_Serif } from "next/font/google";
-import ThemeRegistry from "./ThemeRegistry";
 import Image from "next/image";
 
 const materialSymbols = localFont({
@@ -67,36 +66,34 @@ export default function RootLayout({ children }: { children: any }) {
       ${notoSerif.variable} 
       ${notoSans.variable} 
       ${jetbrainsMono.variable}
-      scroll-smooth
       scroll-pt-[60px]
+      scroll-smooth
     `}
     >
       <body>
-        <ThemeRegistry options={{ key: "joy" }}>
-          <div className="fixed top-0 z-10 flex h-[60px] w-full items-center justify-between border-b border-b-neutral-300 px-5 backdrop-blur-lg">
-            <div className="flex items-center gap-2.5 px-1 py-2">
-              <div className="symbol text-4xl font-bold">
-                <span>rocket</span>
-              </div>
-              <div className="font-sans text-2xl font-bold">Next Blog</div>
+        <div className="fixed top-0 z-10 flex h-[60px] w-full items-center justify-between border-b border-b-neutral-300 px-5 backdrop-blur-lg">
+          <div className="flex items-center gap-2.5 px-1 py-2">
+            <div className="symbol text-4xl font-bold">
+              <span>rocket</span>
             </div>
-            <div className="flex w-48 justify-between font-symbol text-4xl">
-              <div className="mx-4 w-11 border-r">
-                <span>search</span>
-              </div>
-              <div>
-                <span>light_mode</span>
-              </div>
-              <div className="h-10 w-9 px-0.5 py-0.5">
-                <Image src="/images/github-mark.svg" alt="github" width="36" height="42" />
-              </div>
-              <div>
-                <span>rss_feed</span>
-              </div>
+            <div className="font-sans text-2xl font-bold">Next Blog</div>
+          </div>
+          <div className="flex w-48 justify-between font-symbol text-4xl">
+            <div className="mx-4 w-11 border-r">
+              <span>search</span>
+            </div>
+            <div>
+              <span>light_mode</span>
+            </div>
+            <div className="h-10 w-9 px-0.5 py-0.5">
+              <Image src="/images/github-mark.svg" alt="github" width="36" height="42" />
+            </div>
+            <div>
+              <span>rss_feed</span>
             </div>
           </div>
-          {children}
-        </ThemeRegistry>
+        </div>
+        {children}
       </body>
     </html>
   );
