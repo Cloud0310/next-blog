@@ -1,9 +1,10 @@
+"use client";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { JetBrains_Mono, Noto_Sans, Noto_Serif } from "next/font/google";
 import Image from "next/image";
-import ThemeButton from "@/components/theme-button";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 const materialSymbols = localFont({
@@ -59,6 +60,32 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: any }) {
+  const [theme, setTheme] = useState<"light" | "dark">(
+    window.matchMedia("(prefer-color-scheme: dark)") ? "dark" : "light"
+  );
+  function handleToggleTheme() {
+    if (theme === "dark") {
+      setTheme("light");
+      window.localStorage.setItem("theme", "light");
+    } else {
+      setTheme("dark");
+      window.localStorage.setItem("theme", "dark");
+    }
+  }
+  useEffect(() => {
+    if (window.localStorage.getItem("theme") === "dark" || (!("theme" in window.localStorage) && theme === "dark")) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
+      if (e.matches) {
+        setTheme("dark");
+      } else {
+        setTheme("light");
+      }
+    });
+  }, [theme]);
   return (
     <html
       className={`${materialSymbols.variable}
@@ -84,11 +111,17 @@ export default function RootLayout({ children }: { children: any }) {
               <span>search</span>
             </div>
             <div>
-              <ThemeButton />
+              <button type="button" onClick={handleToggleTheme}>
+                {theme === "dark" ? (
+                  <Image src="/images/light_mode.svg" alt="Light Mode" width="36" height="36" />
+                ) : (
+                  <Image src="/images/dark_mode.svg" alt="Dark Mode" width="36" height="36" />
+                )}
+              </button>
             </div>
             <div className="h-10 w-9 px-0.5 py-0.5">
               <Link href="https://github.com/Cloud0310/next-blog">
-                {document.documentElement.classList.contains("dark") ? (
+                {theme === "dark" ? (
                   <Image src="/images/github-mark-white.svg" alt="github" width="36" height="36" />
                 ) : (
                   <Image src="/images/github-mark.svg" alt="github" width="36" height="36" />
