@@ -1,9 +1,10 @@
-import React from "react";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { JetBrains_Mono, Noto_Sans, Noto_Serif } from "next/font/google";
 import Image from "next/image";
+import ThemeButton from "@/components/theme-button";
+import Link from "next/link";
 
 const materialSymbols = localFont({
   style: "normal",
@@ -83,13 +84,21 @@ export default function RootLayout({ children }: { children: any }) {
               <span>search</span>
             </div>
             <div>
-              <span>light_mode</span>
+              <ThemeButton />
             </div>
             <div className="h-10 w-9 px-0.5 py-0.5">
-              <Image src="/images/github-mark.svg" alt="github" width="36" height="42" />
+              <Link href="https://github.com/Cloud0310/next-blog">
+                {document.documentElement.classList.contains("dark") ? (
+                  <Image src="/images/github-mark-white.svg" alt="github" width="36" height="36" />
+                ) : (
+                  <Image src="/images/github-mark.svg" alt="github" width="36" height="36" />
+                )}
+              </Link>
             </div>
             <div>
-              <span>rss_feed</span>
+              <Link href="#">
+                <Image src="/images/rss.svg" alt="rss" width="36" height="36" />
+              </Link>
             </div>
           </div>
         </div>

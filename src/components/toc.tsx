@@ -2,6 +2,7 @@
 import { slug } from "github-slugger";
 import * as React from "react";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 function prepareTitle(title: string) {
   return title.startsWith("#") ? title.substring(2) : title;
@@ -59,8 +60,7 @@ export default function Toc() {
     const observer = new IntersectionObserver(
       entries => {
         let i = 0;
-        for (; i < titles.length; i++)
-          if (titles[i].getBoundingClientRect().bottom > window.innerHeight / 2) break;
+        for (; i < titles.length; i++) if (titles[i].getBoundingClientRect().bottom > window.innerHeight / 2) break;
         setToActive(titleTree, titles[Math.max(0, i - 1)]);
       },
       {
@@ -71,8 +71,7 @@ export default function Toc() {
     const observer2 = new IntersectionObserver(
       entries => {
         let i = 0;
-        for (; i < titles.length; i++)
-          if (titles[i].getBoundingClientRect().bottom > window.innerHeight / 2) break;
+        for (; i < titles.length; i++) if (titles[i].getBoundingClientRect().bottom > window.innerHeight / 2) break;
         setToActive(titleTree, titles[Math.max(0, i - 1)]);
       },
       {
@@ -86,8 +85,7 @@ export default function Toc() {
     if (mainTitle) {
       const mainTitleObserver = new IntersectionObserver(
         entries => {
-          if (entries[0].isIntersecting)
-            setToActive(titleTree, titleTree[0].this);
+          if (entries[0].isIntersecting) setToActive(titleTree, titleTree[0].this);
         },
         {
           rootMargin: "-60px 0px 0px 0px",
@@ -108,35 +106,32 @@ export default function Toc() {
           {titleTree.map((titleL1: TreeNode, index: number) => {
             return (
               <li key={index}>
-                <a href={"#" + slug(titleL1.this.innerText)} className="group">
+                <Link href={"#" + slug(titleL1.this.innerText)} className="group">
                   <span className="hover:text-neutral-600 group-aria-[current=true]:text-primary-400">
                     {prepareTitle(titleL1.this.innerText)}
                   </span>
-                </a>
+                </Link>
                 <ul className="my-2 ml-3 leading-6">
                   {titleL1.children?.map((titleL2: TreeNode, index: number) => {
                     return (
                       <li key={index}>
-                        <a href={"#" + slug(titleL2.this.innerText)} className="group">
+                        <Link href={"#" + slug(titleL2.this.innerText)} className="group">
                           <span className="hover:text-neutral-600 group-aria-[current=true]:text-primary-400">
                             {prepareTitle(titleL2.this.innerText)}
                           </span>
-                        </a>
+                        </Link>
                         <ul className="my-2 ml-3 leading-6">
                           {titleL2.children?.map((titleL3: TreeNode, index: number) => {
                             return (
                               <li key={index}>
-                                <a href={"#" + slug(titleL3.this.innerText)} className="group">
+                                <Link href={"#" + slug(titleL3.this.innerText)} className="group">
                                   <span
-                                    className="group-aria-[current=true]:text-primary-4 00
-
-
-
-                                  hover:text-neutral-600"
+                                    className="hover:text-neutral-600
+                                  group-aria-[current=true]:text-primary-400"
                                   >
                                     {prepareTitle(titleL3.this.innerText)}
                                   </span>
-                                </a>
+                                </Link>
                               </li>
                             );
                           })}
