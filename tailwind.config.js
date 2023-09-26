@@ -2,6 +2,7 @@
 import colors from "tailwindcss/colors";
 
 module.exports = {
+  darkMode: "class",
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -20,9 +21,7 @@ module.exports = {
         "serif",
       ],
       mono: ["var(--font-jetbrains-mono)", "monospace"],
-      symbol: ["var(--font-family-symbols)"],
     },
-    darkMode: "class",
     colors: {
       inherit: "inherit",
       transparent: "transparent",

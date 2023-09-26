@@ -2,6 +2,7 @@
 import { ReactNode, useEffect } from "react";
 import Toc from "@/components/toc";
 import Prism from "prismjs";
+import Image from "next/image";
 
 export default function Layout({ children }: { children: ReactNode }) {
   useEffect(() => {
@@ -130,11 +131,11 @@ export default function Layout({ children }: { children: ReactNode }) {
   }, []);
   return (
     <div className="relative top-[60px] flex h-full w-full font-sans">
-      <div className="flex-1 bg-neutral-100 "></div>
-      <div className="min-h-[calc(100vh-60px)] flex-1 border-x-neutral-300 px-20 pb-80 lg:min-w-[800px]">
-        <div> {children} </div>
+      <div className="flex-1 bg-neutral-100 dark:bg-neutral-800"></div>
+      <div className="min-h-[calc(100vh-60px)] flex-1 border-x-neutral-300 px-20 pb-80 dark:bg-neutral-800 lg:min-w-[800px]">
+        {children}
       </div>
-      <div className="w-full flex-1 bg-neutral-100">
+      <div className="w-full flex-1 bg-neutral-100 dark:bg-neutral-800">
         <Toc />
       </div>
       <div className="fixed bottom-4 right-4 z-50 transition-opacity" id="scroll-to-top">
@@ -142,12 +143,18 @@ export default function Layout({ children }: { children: ReactNode }) {
           type="button"
           onClick={() => {
             window.scrollTo(0, 0);
+            4;
           }}
-          className="h-12 w-12 items-center justify-center rounded-full opacity-70 shadow-md hover:bg-neutral-300 hover:shadow-xl"
+          className="h-12 w-12 rounded-full p-3 opacity-70 shadow-md hover:bg-neutral-300 hover:shadow-xl"
         >
-          <span className="font-symbol text-2xl text-neutral-700" tabIndex={1}>
-            arrow_upward
-          </span>
+          <Image
+            src="/images/arrow_upward.svg"
+            height="36"
+            width="36"
+            alt="Go back to top"
+            className="text-neutral-700"
+            tabIndex={1}
+          />
         </button>
       </div>
     </div>

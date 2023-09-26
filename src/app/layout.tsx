@@ -7,14 +7,6 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-const materialSymbols = localFont({
-  style: "normal",
-  src: "../fonts/material-symbols-outlined.woff2",
-  display: "block",
-  weight: "100 700",
-  variable: "--font-family-symbols"
-});
-
 const notoSans = Noto_Sans({
   subsets: ["latin"],
   style: ["normal", "italic"],
@@ -61,34 +53,34 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: any }) {
   const [theme, setTheme] = useState<"light" | "dark">(
-    window.matchMedia("(prefer-color-scheme: dark)") ? "dark" : "light"
+    window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
   );
+
   function handleToggleTheme() {
-    if (theme === "dark") {
-      setTheme("light");
-      window.localStorage.setItem("theme", "light");
-    } else {
-      setTheme("dark");
-      window.localStorage.setItem("theme", "dark");
-    }
+    theme === "dark" ? setTheme("light") : setTheme("dark");
   }
+
   useEffect(() => {
-    if (window.localStorage.getItem("theme") === "dark" || (!("theme" in window.localStorage) && theme === "dark")) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
-      if (e.matches) {
-        setTheme("dark");
-      } else {
-        setTheme("light");
-      }
-    });
+    theme === "dark"
+      ? document.documentElement.classList.add("dark")
+      : document.documentElement.classList.remove("dark");
   }, [theme]);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleDarkModeChange = (e: MediaQueryListEvent) => {
+      e.matches ? setTheme("dark") : setTheme("light");
+    };
+    handleDarkModeChange({ matches: mediaQuery.matches } as MediaQueryListEvent);
+    mediaQuery.addEventListener("change", handleDarkModeChange);
+    return () => {
+      mediaQuery.removeEventListener("change", handleDarkModeChange);
+    };
+  }, []);
+
   return (
     <html
-      className={`${materialSymbols.variable}
+      className={`
       ${sourceHanSerif.variable}
       ${sourceHansSans.variable}
       ${notoSerif.variable} 
@@ -99,16 +91,16 @@ export default function RootLayout({ children }: { children: any }) {
     `}
     >
       <body>
-        <div className="fixed top-0 z-10 flex h-[60px] w-full items-center justify-between border-b border-b-neutral-300 px-5 backdrop-blur-lg">
+        <div className="fixed top-0 z-10 flex h-[60px] w-full items-center justify-between border-b border-b-neutral-600 px-5 backdrop-blur-lg dark:border-b-neutral-700 dark:bg-neutral-800">
           <div className="flex items-center gap-2.5 px-1 py-2">
-            <div className="symbol text-4xl font-bold">
-              <span>rocket</span>
+            <div className="text-4xl font-bold">
+              <Image src="/images/rocket.svg" alt="rocket" width="36" height="36" />
             </div>
             <div className="font-sans text-2xl font-bold">Next Blog</div>
           </div>
-          <div className="flex w-48 justify-between font-symbol text-4xl">
+          <div className="flex w-48 justify-between text-4xl">
             <div className="mx-4 w-11 border-r">
-              <span>search</span>
+              <Image src="/images/search.svg" alt="search" width="36" height="36" />
             </div>
             <div>
               <button type="button" onClick={handleToggleTheme}>

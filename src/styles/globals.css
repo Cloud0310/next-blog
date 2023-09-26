@@ -6,7 +6,7 @@
 
 @layer components {
     .symbol {
-        font-family: theme('fontFamily.symbol'), serif;
+        /* font-family: theme('fontFamily.symbol'), serif; TODO: replace with material symbols  */
         font-style: normal;
         font-size: 24px;
         line-height: 1;
@@ -19,22 +19,22 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-rendering: optimizeLegibility;
-        font-feature-settings: 'liga';
+        font-feature-settings: "liga";
     }
 
     #toc li a {
-        @apply relative
+        @apply relative;
     }
 
     #toc li a::before {
         position: absolute;
         content: "";
-        left: -.75rem;
+        left: -0.75rem;
         top: 0;
         bottom: 0;
         width: 2px;
         background-color: transparent;
-        transition: background-color .25s;
+        transition: background-color 0.25s;
         z-index: 1;
     }
 
@@ -47,7 +47,6 @@
     }
 
     #toc li a[aria-current]::before {
-        background-color: theme('colors.primary.300');
+        background-color: theme("colors.primary.300");
     }
 }
-
