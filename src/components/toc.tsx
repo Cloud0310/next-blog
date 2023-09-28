@@ -2,6 +2,7 @@
 import { slug } from "github-slugger";
 import * as React from "react";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 function prepareTitle(title: string) {
   return title.startsWith("#") ? title.substring(2) : title;
@@ -96,43 +97,42 @@ export default function Toc() {
     document.body.appendChild(document.createElement("toc-resolved"));
   }, [titleTree.length]);
   return (
-    <div id="toc" className="sticky left-20 top-[calc(60px+2.5rem)] m-10 w-64 pb-[1em]">
+    <div id="toc" className="sticky left-20 top-[calc(60px+2.5rem)] m-10 w-72 pb-[1em]">
       <div className="mx-3 my-4 h-8">
         <span className="font-sans font-bold text-neutral-500">On this page</span>
       </div>
-      <nav className="mb-5 border-l border-l-neutral-300 px-3">
+      <nav className="mb-5 border-l border-l-neutral-300 px-3 dark:border-l-neutral-600">
         <ul className="text-sm text-neutral-500">
           {titleTree.map((titleL1: TreeNode, index: number) => {
             return (
               <li key={index}>
-                <a href={"#" + slug(titleL1.this.innerText)} className="group">
-                  <span className="hover:text-neutral-600 group-aria-[current=true]:text-primary-400">
+                <Link href={"#" + slug(titleL1.this.innerText)} className="group">
+                  <span className="hover:text-neutral-600 group-aria-[current=true]:text-primary-400 group-aria-[current=true]:dark:text-primary-600">
                     {prepareTitle(titleL1.this.innerText)}
                   </span>
-                </a>
+                </Link>
                 <ul className="my-2 ml-3 leading-6">
                   {titleL1.children?.map((titleL2: TreeNode, index: number) => {
                     return (
                       <li key={index}>
-                        <a href={"#" + slug(titleL2.this.innerText)} className="group">
-                          <span className="hover:text-neutral-600 group-aria-[current=true]:text-primary-400">
+                        <Link href={"#" + slug(titleL2.this.innerText)} className="group">
+                          <span className="hover:text-neutral-600 group-aria-[current=true]:text-primary-400 group-aria-[current=true]:dark:text-primary-600">
                             {prepareTitle(titleL2.this.innerText)}
                           </span>
-                        </a>
+                        </Link>
                         <ul className="my-2 ml-3 leading-6">
                           {titleL2.children?.map((titleL3: TreeNode, index: number) => {
                             return (
                               <li key={index}>
-                                <a href={"#" + slug(titleL3.this.innerText)} className="group">
+                                <Link href={"#" + slug(titleL3.this.innerText)} className="group">
                                   <span
-                                    className="
-                                      hover:text-neutral-600 
-                                      group-aria-[current=true]:text-primary-400
-                                    "
+                                    className="hover:text-neutral-600
+                                  group-aria-[current=true]:text-primary-400
+                                  group-aria-[current=true]:dark:text-primary-600"
                                   >
                                     {prepareTitle(titleL3.this.innerText)}
                                   </span>
-                                </a>
+                                </Link>
                               </li>
                             );
                           })}

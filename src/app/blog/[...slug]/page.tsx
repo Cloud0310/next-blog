@@ -8,7 +8,7 @@ import { slug } from "github-slugger";
 import DOMPurity from "isomorphic-dompurify";
 // @ts-ignore
 import MarkedOptions = marked.MarkedOptions;
-import {notFound} from "next/navigation";
+import Comments from "@/components/comments";
 
 // Marked Highlight, modified from marked-highlight --------------------------------------------------------------------
 // From marked helpers
@@ -339,18 +339,23 @@ export async function generateStaticParams() {
 export default function Page({ params }: { params: { slug: string[] } }) {
   const title = params.slug[2];
   if (!fs.existsSync(`sources/posts/${decodeURIComponent(title)}.md`))
-    notFound();
+    return <div>What? The page has lost in this world line!</div>;
   const markdown = fs.readFileSync(`sources/posts/${decodeURIComponent(title)}.md`, "utf-8");
   const htmlRendered = markdownRenderer.parse(markdown) as string;
   return (
-    <div className="markdown-content">
-      <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"
-        integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn"
-        crossOrigin="anonymous"
-      />
-      {parse(htmlRendered)}
-    </div>
+    <>
+      <div className="markdown-content">
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"
+          integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn"
+          crossOrigin="anonymous"
+        />
+        {parse(htmlRendered)}
+      </div>
+      <div className="h-48 overflow-y-scroll">
+        <Comments />
+      </div>
+    </>
   );
 }
