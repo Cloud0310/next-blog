@@ -6,12 +6,12 @@
 
 @layer base {
     :root[class~="dark"] {
-        --color-link: theme(colors.primary.600);
-        --color-symbol: theme(colors.neutral.200);
+        --color-link: theme("colors.primary.600");
+        --color-symbol: theme("colors.neutral.200");
     }
     :root:not([class~="dark"]) {
-        --color-symbol: theme(colors.neutral.700);
-        --color-link: theme(colors.primary.400);
+        --color-symbol: theme("colors.neutral.700");
+        --color-link: theme("colors.primary.400");
     }
 }
 
