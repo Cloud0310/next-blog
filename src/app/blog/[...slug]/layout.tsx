@@ -130,33 +130,36 @@ export default function Layout({ children }: { children: ReactNode }) {
     }
   }, []);
   return (
-    <div className="relative top-[60px] flex h-full w-full font-sans">
-      <div className="flex-1 bg-neutral-100 dark:bg-neutral-800"></div>
-      <div className="min-h-[calc(100vh-60px)] flex-1 border-x-neutral-300 px-20 pb-80 dark:bg-neutral-800 lg:min-w-[800px]">
-        {children}
+    <>
+      <div className="dark:bg-dark-800 h-[60px] w-full bg-neutral-100" />
+      <div className="relative flex h-full w-full font-sans">
+        <div className="dark:bg-dark-800 flex-1 bg-neutral-100"></div>
+        <div className="dark:bg-dark-700  min-h-[calc(100vh-60px)] flex-1 border-b-neutral-300 px-20 pb-80 lg:min-w-[800px]">
+          {children}
+        </div>
+        <div className="dark:bg-dark-800 w-full flex-1 bg-neutral-100">
+          <Toc />
+        </div>
+        <div className="fixed bottom-4 right-4 z-50 transition-opacity" id="scroll-to-top">
+          <button
+            type="button"
+            onClick={() => {
+              window.scrollTo(0, 0);
+              4;
+            }}
+            className="h-12 w-12 rounded-full p-3 opacity-70 shadow-md hover:bg-neutral-300 hover:shadow-xl"
+          >
+            <Image
+              src="/images/arrow_upward.svg"
+              height="36"
+              width="36"
+              alt="Go back to top"
+              className="text-neutral-700"
+              tabIndex={1}
+            />
+          </button>
+        </div>
       </div>
-      <div className="w-full flex-1 bg-neutral-100 dark:bg-neutral-800">
-        <Toc />
-      </div>
-      <div className="fixed bottom-4 right-4 z-50 transition-opacity" id="scroll-to-top">
-        <button
-          type="button"
-          onClick={() => {
-            window.scrollTo(0, 0);
-            4;
-          }}
-          className="h-12 w-12 rounded-full p-3 opacity-70 shadow-md hover:bg-neutral-300 hover:shadow-xl"
-        >
-          <Image
-            src="/images/arrow_upward.svg"
-            height="36"
-            width="36"
-            alt="Go back to top"
-            className="text-neutral-700"
-            tabIndex={1}
-          />
-        </button>
-      </div>
-    </div>
+    </>
   );
 }

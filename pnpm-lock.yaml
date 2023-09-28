@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@types/disqusjs':
+    specifier: ^1.3.1
+    version: 1.3.1
   '@types/marked':
     specifier: ^5.0.1
     version: 5.0.1
@@ -26,6 +29,9 @@ dependencies:
   date-fns:
     specifier: ^2.30.0
     version: 2.30.0
+  disqusjs:
+    specifier: 3.0.3-canary.1
+    version: 3.0.3-canary.1(eslint@8.43.0)(react@18.2.0)
   eslint:
     specifier: 8.43.0
     version: 8.43.0
@@ -314,6 +320,10 @@ packages:
   /@tootallnate/once@2.0.0:
     resolution: {integrity: sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==}
     engines: {node: '>= 10'}
+    dev: false
+
+  /@types/disqusjs@1.3.1:
+    resolution: {integrity: sha512-Kmz5P1ZorMdVj85uWh0QHZRY6qzlwUvQMGzdpjX8E22VZTIoljGOrXSJxRoPJfJ/GjEgkqRETEQQftCfFeDCEQ==}
     dev: false
 
   /@types/dompurify@3.0.3:
@@ -667,6 +677,12 @@ packages:
       update-browserslist-db: 1.0.13(browserslist@4.21.11)
     dev: false
 
+  /builtins@5.0.1:
+    resolution: {integrity: sha512-qwVpFEHNfhYJIzNRBvd2C1kyo6jz3ZSMPyyuR47OPdiKWlbYnZNyDWuyR175qDnAJLiCo5fBBqPb3RiXgWlkOQ==}
+    dependencies:
+      semver: 7.5.4
+    dev: false
+
   /busboy@1.6.0:
     resolution: {integrity: sha512-8SFQbg/0hQ9xy3UNTB0YEnsNBbWfhf7RtnzpL7TkBiTBRfrQ9Fxcnz7VJsleJpyp6rVLvXiuORqjlHi5q+PYuA==}
     engines: {node: '>=10.16.0'}
@@ -868,6 +884,24 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       path-type: 4.0.0
+    dev: false
+
+  /disqusjs@3.0.3-canary.1(eslint@8.43.0)(react@18.2.0):
+    resolution: {integrity: sha512-AAIWfYt4BbcZeXRJV8Lqoz8OJMW9ixTs/1W5hVFfx5F+eNIui/ghhWVleHTRGy6neeI7OqfERpU9i7+JxhdKmA==}
+    peerDependencies:
+      preact: ^10.7.1
+      react: ^16.11.0 || ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      preact:
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      eslint-plugin-n: 16.1.0(eslint@8.43.0)
+      foxact: 0.2.20(react@18.2.0)
+      react: 18.2.0
+    transitivePeerDependencies:
+      - eslint
     dev: false
 
   /dlv@1.1.3:
@@ -1133,6 +1167,17 @@ packages:
       - supports-color
     dev: false
 
+  /eslint-plugin-es-x@7.2.0(eslint@8.43.0):
+    resolution: {integrity: sha512-9dvv5CcvNjSJPqnS5uZkqb3xmbeqRLnvXKK7iI5+oK/yTusyc46zbBZKENGsOfojm/mKfszyZb+wNqNPAPeGXA==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    peerDependencies:
+      eslint: '>=8'
+    dependencies:
+      '@eslint-community/eslint-utils': 4.4.0(eslint@8.43.0)
+      '@eslint-community/regexpp': 4.8.1
+      eslint: 8.43.0
+    dev: false
+
   /eslint-plugin-import@2.28.1(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-typescript@3.6.1)(eslint@8.43.0):
     resolution: {integrity: sha512-9I9hFlITvOV55alzoKBI+K9q74kv0iKMeY6av5+umsNwayt59fz692daGyjR+oStBQgx6nwR9rXldDev3Clw+A==}
     engines: {node: '>=4'}
@@ -1191,6 +1236,24 @@ packages:
       object.entries: 1.1.7
       object.fromentries: 2.0.7
       semver: 6.3.1
+    dev: false
+
+  /eslint-plugin-n@16.1.0(eslint@8.43.0):
+    resolution: {integrity: sha512-3wv/TooBst0N4ND+pnvffHuz9gNPmk/NkLwAxOt2JykTl/hcuECe6yhTtLJcZjIxtZwN+GX92ACp/QTLpHA3Hg==}
+    engines: {node: '>=16.0.0'}
+    peerDependencies:
+      eslint: '>=7.0.0'
+    dependencies:
+      '@eslint-community/eslint-utils': 4.4.0(eslint@8.43.0)
+      builtins: 5.0.1
+      eslint: 8.43.0
+      eslint-plugin-es-x: 7.2.0(eslint@8.43.0)
+      get-tsconfig: 4.7.2
+      ignore: 5.2.4
+      is-core-module: 2.13.0
+      minimatch: 3.1.2
+      resolve: 1.22.6
+      semver: 7.5.4
     dev: false
 
   /eslint-plugin-react-hooks@4.6.0(eslint@8.43.0):
@@ -1411,6 +1474,19 @@ packages:
       asynckit: 0.4.0
       combined-stream: 1.0.8
       mime-types: 2.1.35
+    dev: false
+
+  /foxact@0.2.20(react@18.2.0):
+    resolution: {integrity: sha512-7Mez3d+t1xD+Qq85Xst03OFrLw+DlTXK7qn6bicIPIgnIDEopnRG5Bkz3/RgQp74+wvWb47BrUeq+tIFGbHxIg==}
+    peerDependencies:
+      react: '*'
+    peerDependenciesMeta:
+      react:
+        optional: true
+    dependencies:
+      client-only: 0.0.1
+      react: 18.2.0
+      server-only: 0.0.1
     dev: false
 
   /fraction.js@4.3.6:
@@ -2725,6 +2801,10 @@ packages:
     hasBin: true
     dependencies:
       lru-cache: 6.0.0
+    dev: false
+
+  /server-only@0.0.1:
+    resolution: {integrity: sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA==}
     dev: false
 
   /set-function-name@2.0.1:

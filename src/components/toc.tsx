@@ -97,17 +97,17 @@ export default function Toc() {
     document.body.appendChild(document.createElement("toc-resolved"));
   }, [titleTree.length]);
   return (
-    <div id="toc" className="sticky left-20 top-[calc(60px+2.5rem)] m-10 w-64 pb-[1em]">
+    <div id="toc" className="sticky left-20 top-[calc(60px+2.5rem)] m-10 w-72 pb-[1em]">
       <div className="mx-3 my-4 h-8">
         <span className="font-sans font-bold text-neutral-500">On this page</span>
       </div>
-      <nav className="mb-5 border-l border-l-neutral-300 px-3">
+      <nav className="mb-5 border-l border-l-neutral-300 px-3 dark:border-l-neutral-600">
         <ul className="text-sm text-neutral-500">
           {titleTree.map((titleL1: TreeNode, index: number) => {
             return (
               <li key={index}>
                 <Link href={"#" + slug(titleL1.this.innerText)} className="group">
-                  <span className="hover:text-neutral-600 group-aria-[current=true]:text-primary-400">
+                  <span className="hover:text-neutral-600 group-aria-[current=true]:text-primary-400 group-aria-[current=true]:dark:text-primary-600">
                     {prepareTitle(titleL1.this.innerText)}
                   </span>
                 </Link>
@@ -116,7 +116,7 @@ export default function Toc() {
                     return (
                       <li key={index}>
                         <Link href={"#" + slug(titleL2.this.innerText)} className="group">
-                          <span className="hover:text-neutral-600 group-aria-[current=true]:text-primary-400">
+                          <span className="hover:text-neutral-600 group-aria-[current=true]:text-primary-400 group-aria-[current=true]:dark:text-primary-600">
                             {prepareTitle(titleL2.this.innerText)}
                           </span>
                         </Link>
@@ -127,7 +127,8 @@ export default function Toc() {
                                 <Link href={"#" + slug(titleL3.this.innerText)} className="group">
                                   <span
                                     className="hover:text-neutral-600
-                                  group-aria-[current=true]:text-primary-400"
+                                  group-aria-[current=true]:text-primary-400
+                                  group-aria-[current=true]:dark:text-primary-600"
                                   >
                                     {prepareTitle(titleL3.this.innerText)}
                                   </span>

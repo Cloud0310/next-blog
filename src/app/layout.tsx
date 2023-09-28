@@ -91,12 +91,12 @@ export default function RootLayout({ children }: { children: any }) {
     `}
     >
       <body>
-        <div className="fixed top-0 z-10 flex h-[60px] w-full items-center justify-between border-b border-b-neutral-600 px-5 backdrop-blur-lg dark:border-b-neutral-700 dark:bg-neutral-800">
+        <div className="dark:border-b-dark-500 fixed top-0 z-10 flex h-[60px] w-full items-center justify-between border-b border-b-neutral-200 px-5  backdrop-blur-lg">
           <div className="flex items-center gap-2.5 px-1 py-2">
             <div className="text-4xl font-bold">
               <Image src="/images/rocket.svg" alt="rocket" width="36" height="36" />
             </div>
-            <div className="font-sans text-2xl font-bold">Next Blog</div>
+            <div className="font-sans text-2xl font-bold dark:text-neutral-500">Next Blog</div>
           </div>
           <div className="flex w-48 justify-between text-4xl">
             <div className="mx-4 w-11 border-r">

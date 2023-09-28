@@ -4,6 +4,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    :root[class~="dark"] {
+        --color-link: theme(colors.primary.600);
+        --color-symbol: theme(colors.neutral.200);
+    }
+    :root:not([class~="dark"]) {
+        --color-symbol: theme(colors.neutral.700);
+        --color-link: theme(colors.primary.400);
+    }
+}
+
 @layer components {
     .symbol {
         /* font-family: theme('fontFamily.symbol'), serif; TODO: replace with material symbols  */
@@ -21,6 +32,10 @@
         text-rendering: optimizeLegibility;
         font-feature-settings: "liga";
     }
+
+    /* img {
+        color: var(--color-symbol);
+    } */
 
     #toc li a {
         @apply relative;
@@ -47,6 +62,7 @@
     }
 
     #toc li a[aria-current]::before {
-        background-color: theme("colors.primary.300");
+        background-color: var(--color-link);
+        border-radius: 2px;
     }
 }

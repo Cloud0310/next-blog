@@ -31,6 +31,7 @@ module.exports = {
       danger: colors.rose,
       success: colors.lime,
       warning: colors.orange,
+      dark: colors.gray,
     },
   },
   plugins: [],
