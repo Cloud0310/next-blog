@@ -46,15 +46,8 @@ const sourceHanSerif = localFont({
   src: "../fonts/SourceHanSerifSC-VF.otf.woff2"
 });
 
-export const metadata: Metadata = {
-  title: "Next Blog",
-  description: "A blog build by Cloud0310 and Nickid2018"
-};
-
 export default function RootLayout({ children }: { children: any }) {
-  const [theme, setTheme] = useState<"light" | "dark">(
-    window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
-  );
+  const [theme, setTheme] = useState<"light" | "dark">("light");
 
   function handleToggleTheme() {
     theme === "dark" ? setTheme("light") : setTheme("dark");

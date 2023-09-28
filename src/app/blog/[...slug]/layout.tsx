@@ -141,10 +141,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <div className="fixed bottom-4 right-4 z-50 transition-opacity" id="scroll-to-top">
         <button
           type="button"
-          onClick={() => {
-            window.scrollTo(0, 0);
-            4;
-          }}
+          onClick={() => window.scrollTo(0, 0)}
           className="h-12 w-12 rounded-full p-3 opacity-70 shadow-md hover:bg-neutral-300 hover:shadow-xl"
         >
           <Image

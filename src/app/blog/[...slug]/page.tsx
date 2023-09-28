@@ -8,6 +8,7 @@ import { slug } from "github-slugger";
 import DOMPurity from "isomorphic-dompurify";
 // @ts-ignore
 import MarkedOptions = marked.MarkedOptions;
+import {notFound} from "next/navigation";
 
 // Marked Highlight, modified from marked-highlight --------------------------------------------------------------------
 // From marked helpers
@@ -338,7 +339,7 @@ export async function generateStaticParams() {
 export default function Page({ params }: { params: { slug: string[] } }) {
   const title = params.slug[2];
   if (!fs.existsSync(`sources/posts/${decodeURIComponent(title)}.md`))
-    return <div>What? The page has lost in this world line!</div>;
+    notFound();
   const markdown = fs.readFileSync(`sources/posts/${decodeURIComponent(title)}.md`, "utf-8");
   const htmlRendered = markdownRenderer.parse(markdown) as string;
   return (

@@ -49,4 +49,29 @@
     #toc li a[aria-current]::before {
         background-color: theme("colors.primary.300");
     }
+
+    .category-content h1 {
+        margin-top: 24px;
+        margin-bottom: 16px;
+        font-size: 2rem;
+        font-weight: 700;
+        line-height: 1.5;
+    }
+
+    .category-content p.page-attribute {
+        border-top: 1px solid var(--color-border);
+        font-size: 90%;
+        color: var(--color-text-secondary);
+        margin-top: 0;
+        padding-top: .5rem;
+    }
+
+    .category-content p {
+        line-height: 1.8;
+        margin-top: 1.5rem;
+    }
+
+    .category-content a {
+        color: var(--color-text-link);
+    }
 }

@@ -1,7 +1,7 @@
 @tailwind base;
 
 @layer base {
-    :root[class~="dark"] {
+    :root[class*="dark"] {
         --color-text: #fff;
         --color-text-link: theme("colors.primary.800");
         --color-text-inactive: theme("colors.neutral.500");
