@@ -5,10 +5,14 @@ import Prism from "prismjs";
 import matter from "gray-matter";
 import parse, { htmlToDOM } from "html-react-parser";
 import { slug } from "github-slugger";
+import Comments from "@/components/comments";
+import { Metadata, ResolvingMetadata } from "next";
 import DOMPurity from "isomorphic-dompurify";
 // @ts-ignore
 import MarkedOptions = marked.MarkedOptions;
-import Comments from "@/components/comments";
+
+import "@/styles/markdown.css";
+import "katex/dist/katex.css";
 
 // Marked Highlight, modified from marked-highlight --------------------------------------------------------------------
 // From marked helpers
@@ -75,7 +79,7 @@ function makeCodeBlock(code: string, lang: string, flags: string[]) {
   }
   const buttonCopy = `
                     <button class="copy-content">
-                        <span>content_paste</span>
+                        <Image src="/images/copy.svg" alt="copy" />
                     </button>`;
   const langText = flags.includes("no-copy")
     ? `<span class="lang-text-static">${escape(lang, false)}</span>`
@@ -314,6 +318,11 @@ const markdownRenderer = new Marked(
   }
 );
 
+interface BlogData {
+  title: string;
+  htmlRendered: string;
+}
+
 // ---------------------------------------------------------------------------------------------------------------------
 
 export async function generateStaticParams() {
@@ -329,11 +338,21 @@ export async function generateStaticParams() {
         const year = split[0];
         const month = split[1];
         const fileName = matter[0] as string;
+        const title = fileName.substring(0, fileName.lastIndexOf("."));
         return {
-          slug: [year, month, fileName.substring(0, fileName.lastIndexOf("."))]
+          slug: [year, month, title]
         };
       });
     });
+}
+
+export async function generateMetadata(
+  params: { params: { slug: string[] } },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  return {
+    title: params.params.slug[2]
+  };
 }
 
 export default function Page({ params }: { params: { slug: string[] } }) {
@@ -344,16 +363,8 @@ export default function Page({ params }: { params: { slug: string[] } }) {
   const htmlRendered = markdownRenderer.parse(markdown) as string;
   return (
     <>
-      <div className="markdown-content">
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"
-          integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn"
-          crossOrigin="anonymous"
-        />
-        {parse(htmlRendered)}
-      </div>
-      <div className="h-48 overflow-y-scroll">
+      <div className="markdown-content">{parse(htmlRendered)}</div>
+      <div className="mt-[80px]">
         <Comments />
       </div>
     </>

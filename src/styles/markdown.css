@@ -193,8 +193,7 @@
         right: 16px;
         width: 35px;
         height: 35px;
-        /* font-family: theme('fontFamily.symbol'), serif; */
-        font-size: 1.25rem;
+        padding: 7px;
         border: 1px solid var(--color-border);
         border-radius: 4px;
         opacity: 0;

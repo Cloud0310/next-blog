@@ -39,8 +39,9 @@ export default function Layout({ children }: { children: ReactNode }) {
       buttons[i].addEventListener("click", () => {
         const button = buttons[i] as HTMLButtonElement;
         navigator.clipboard.writeText((button.nextElementSibling as HTMLPreElement).innerText).then(() => {
-          button.innerText = "inventory";
-          setTimeout(() => (button.innerText = "content_paste"), 1000);
+          const image = button.firstElementChild as HTMLImageElement;
+          image.src = "/images/copied.svg";
+          setTimeout(() => (image.src = "/images/copy.svg"), 1000);
         });
       });
     }
@@ -131,13 +132,13 @@ export default function Layout({ children }: { children: ReactNode }) {
   }, []);
   return (
     <>
-      <div className="dark:bg-dark-800 h-[60px] w-full bg-neutral-100" />
+      <div className="h-[60px] w-full bg-neutral-100 dark:bg-dark-800" />
       <div className="relative flex h-full w-full font-sans">
-        <div className="dark:bg-dark-800 flex-1 bg-neutral-100"></div>
-        <div className="dark:bg-dark-700  min-h-[calc(100vh-60px)] flex-1 border-b-neutral-300 px-20 pb-80 lg:min-w-[800px]">
+        <div className="flex-1 bg-neutral-100 dark:bg-dark-800"></div>
+        <div className="min-h-[calc(100vh-60px)]  flex-1 border-b-neutral-300 px-20 pb-80 dark:bg-dark-700 lg:min-w-[800px]">
           {children}
         </div>
-        <div className="dark:bg-dark-800 w-full flex-1 bg-neutral-100">
+        <div className="w-full flex-1 bg-neutral-100 dark:bg-dark-800">
           <Toc />
         </div>
         <div className="fixed bottom-4 right-4 z-50 transition-opacity" id="scroll-to-top">
