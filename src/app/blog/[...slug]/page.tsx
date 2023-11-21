@@ -10,6 +10,7 @@ import { Metadata, ResolvingMetadata } from "next";
 import DOMPurity from "isomorphic-dompurify";
 // @ts-ignore
 import MarkedOptions = marked.MarkedOptions;
+import config from "@/blog.config.mjs";
 
 import "@/styles/markdown.css";
 import "katex/dist/katex.css";
@@ -326,10 +327,10 @@ interface BlogData {
 // ---------------------------------------------------------------------------------------------------------------------
 
 export async function generateStaticParams() {
-  if (!fs.existsSync("sources/posts")) return [];
+  if (!fs.existsSync(config.blogFolder)) return [];
   return await fs.promises
-    .readdir("sources/posts")
-    .then(files => files.map(file => [file, fs.readFileSync(`sources/posts/${file}`, "utf-8")]))
+    .readdir(config.blogFolder)
+    .then(files => files.map(file => [file, fs.readFileSync(`${config.blogFolder}/${file}`, "utf-8")]))
     .then(files => files.map(file => [file[0], matter(file[1])]))
     .then(matters => {
       return matters.map(matter => {
@@ -357,9 +358,9 @@ export async function generateMetadata(
 
 export default function Page({ params }: { params: { slug: string[] } }) {
   const title = params.slug[2];
-  if (!fs.existsSync(`sources/posts/${decodeURIComponent(title)}.md`))
-    return <div>What? The page has lost in this world line!</div>;
-  const markdown = fs.readFileSync(`sources/posts/${decodeURIComponent(title)}.md`, "utf-8");
+  if (!fs.existsSync(`${config.blogFolder}/${decodeURIComponent(title)}.md`))
+    return <div>{config.pageLostMessage}</div>;
+  const markdown = fs.readFileSync(`${config.blogFolder}/${decodeURIComponent(title)}.md`, "utf-8");
   const htmlRendered = markdownRenderer.parse(markdown) as string;
   return (
     <>

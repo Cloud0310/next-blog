@@ -6,6 +6,7 @@ import { JetBrains_Mono, Noto_Sans, Noto_Serif } from "next/font/google";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import config from "@/blog.config.mjs";
 
 const notoSans = Noto_Sans({
   subsets: ["latin"],
@@ -84,12 +85,12 @@ export default function RootLayout({ children }: { children: any }) {
     `}
     >
       <body>
-        <div className="dark:border-b-dark-500 fixed top-0 z-10 flex h-[60px] w-full items-center justify-between border-b border-b-neutral-200 px-5  backdrop-blur-lg">
+        <div className="fixed top-0 z-10 flex h-[60px] w-full items-center justify-between border-b border-b-neutral-200 px-5 backdrop-blur-lg  dark:border-b-dark-500">
           <div className="flex items-center gap-2.5 px-1 py-2">
             <div className="text-4xl font-bold">
               <Image src="/images/rocket.svg" alt="rocket" width="36" height="36" />
             </div>
-            <div className="font-sans text-2xl font-bold dark:text-neutral-500">Next Blog</div>
+            <div className="font-sans text-2xl font-bold dark:text-neutral-500">{config.blogName}</div>
           </div>
           <div className="flex w-48 justify-between text-4xl">
             <div className="mx-4 w-11 border-r">
@@ -114,7 +115,7 @@ export default function RootLayout({ children }: { children: any }) {
               </Link>
             </div>
             <div>
-              <Link href="#">
+              <Link href={config.rssLink}>
                 <Image src="/images/rss.svg" alt="rss" width="36" height="36" />
               </Link>
             </div>
