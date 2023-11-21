@@ -3,9 +3,6 @@
  */
 const nextConfig = {
   output: "export",
-  experimental: {
-    appDir: true,
-  },
   reactStrictMode: true,
   swcMinify: true
 };
