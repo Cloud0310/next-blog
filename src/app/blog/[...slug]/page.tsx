@@ -351,7 +351,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   return {
-    title: params.params.slug[2]
+    title: decodeURIComponent(params.params.slug[2])
   };
 }
 

@@ -2,14 +2,14 @@ import fs from "fs";
 import matter from "gray-matter";
 
 export async function generateStaticParams() {
-  if (!fs.existsSync("sources/posts")) return [];
+  if (!fs.existsSync("sources/posts")) return [{ name: "nocat" }];
   return await fs.promises
     .readdir("sources/posts")
     .then(files => files.map(file => fs.readFileSync(`sources/posts/${file}`, "utf-8")))
     .then(files => files.map(file => matter(file)))
     .then(matters => matters.map(matter => matter.data["category"] as string))
     .then(categories => categories.filter((val, index) => categories.indexOf(val) == index))
-    .then(categories => categories.map(category => ({ params: { name: category } })));
+    .then(categories => categories.map(category => ({ name: category })));
 }
 
 export default function Page({ params }: { params: { name: string } }) {
